@@ -1,0 +1,48 @@
+# zshvars
+#
+# ZSH exported variables
+
+# ZSH settings
+export LOGCHECK='300'
+export PS1='[%! %n@%m]%# '
+export RPS1='%(?..< %? > )%~'
+
+# Locale
+# Force sorting of ls to match C order so that dotfiles come first
+export LC_COLLATE="C"
+
+# Pager
+export LESS='-giMQs'
+export PAGER='less'
+
+# CVS
+export CVS_RSH='ssh'
+if [[ -d /export/cvsroot ]]; then
+  export CVSROOT=':local:/export/cvsroot'
+elif [[ -d /home/cvsroot ]]; then
+  export CVSROOT=':local:/home/cvsroot'
+fi
+
+# Email
+for i in ~/.INBOX ~/.mail/mailboxes/INBOX ~/Maildir ~/.mail/mailboxes/Inbox /var/mail/sengelha; do
+  if [[ -d $i || -f $i ]]; then
+    export MAIL=$i
+    break
+  fi
+done
+unset i
+export MAILCHECK='300'
+
+# Rsync
+export RSYNC_RSH='ssh'
+
+# Editors
+if isexec vim; then
+  export EDITOR='vim'
+  export VISUAL='vim'
+else
+  export EDITOR='vi'
+  export VISUAL='vi'
+fi
+
+[[ -d ${HOME}/.terminfo ]] && export TERMINFO=${HOME}'/.terminfo'

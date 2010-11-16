@@ -1,0 +1,103 @@
+# zshalias
+#
+# ZSH aliases
+
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd....='cd ../../..'
+alias cp='nocorrect cp'
+alias d='dirs -v'
+alias h='history'
+alias j='jobs'
+alias la='ls -a'
+alias ll='ls -l'
+alias lsa='ls -ld .*'
+alias lsd='ls -ld *(-/DN)'
+alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
+alias po='popd'
+alias pu='pushd'
+alias ssh-stop='eval `ssh-agent -k` ; rm ~/.ssh/ssh-agent.out'
+alias sudo='nocorrect sudo'
+
+isexec gnufind && alias find='gnufind'
+isexec gnutar && alias tar='gnutar'
+isexec pymailstat && alias ms='pymailstat -e sent -e .imap'
+isexec nph && alias ph='nph'
+
+if isexec vim; then
+  alias vi='vim'
+else
+  alias vim='vi'
+fi
+
+if grep --version |& grep "GNU grep" >/dev/null 2>&1; then
+  alias grep='grep --color'
+fi
+
+if isexec gnudf; then
+  alias df='gnudf -h'
+elif isexec gdf; then
+  alias df='gdf -h'
+elif df -h >/dev/null 2>&1; then
+  alias df='df -h'
+fi
+
+if isexec gnuls; then
+  alias ls='gnuls --color=auto -F'
+elif isexec gls; then
+  alias ls='gls --color=auto -F'
+elif ls --version |& grep "GNU fileutils" >/dev/null 2>&1; then
+  alias ls='ls --color=auto -F'
+elif ls --version |& grep "Free Software Foundation" > /dev/null 2>&1; then
+  alias ls='ls --color=auto -F'
+fi
+
+if isexec gnufind; then
+  alias find='gnufind'
+fi
+
+if isexec mutt+libesmtp; then
+  alias mutt='mutt+libesmtp'
+fi
+
+if isexec ncftp; then
+  alias ftp='ncftp'
+fi
+
+if isexec slrn; then
+  if [[ -d /var/spool/news ]]; then
+    alias slrn='slrn -f ~/.slrn/newsrc-localhost'
+  elif [[ -d ~/.slrn/spool/att ]]; then
+    alias slrn='slrn -f ~/.slrn/newsrc-att --spool'
+  elif [[ -d ~/.slrn/spool/uiuc ]]; then
+    alias slrn='slrn -f ~/.slrn/newsrc-uiuc --spool'
+  fi
+fi
+
+if isexec slrnpull; then
+  if [[ -d ~/.slrn/spool/att ]]; then
+    alias slrnpull='slrnpull -d ~/.slrn/spool/att -h netnews.att.net --new-groups'
+  elif [[ -d ~/.slrn/spool/uiuc ]]; then
+    alias slrnpull='slrnpull -d ~/.slrn/spool/uiuc -h news-proxy.cso.uiuc.edu --new-groups'
+  fi
+fi
+
+if make --version |& grep "GNU Make" >/dev/null 2>&1; then
+  if ! isexec gmake; then
+    alias gmake='make'
+  fi
+  if ! isexec gnumake; then
+    alias gnumake='make'
+  fi
+fi
+
+if m4 --version < /dev/null |& grep "GNU m4" >/dev/null 2>&1; then
+  if ! isexec gm4; then
+    alias gm4='m4'
+  fi
+  if ! isexec gnum4; then
+    alias gnum4='m4'
+  fi
+fi
+
