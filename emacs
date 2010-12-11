@@ -104,6 +104,7 @@
   (setq font-lock-auto-fontify t)) ; XEmacs
 
 (require 'color-theme)
+(color-theme-initialize)
 (color-theme-charcoal-black)
 
 ;;}}}
