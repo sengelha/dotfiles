@@ -101,3 +101,8 @@ if m4 --version < /dev/null |& grep "GNU m4" >/dev/null 2>&1; then
   fi
 fi
 
+if ! isexec xemacs; then
+  if isexec xemacs21; then
+    alias xemacs='xemacs21'
+  fi
+fi
