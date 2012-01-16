@@ -12,7 +12,7 @@ export RPS1='%(?..< %? > )%~'
 export LC_COLLATE="C"
 
 # Pager
-export LESS='-giMQs'
+export LESS='-giMQsFXR'
 export PAGER='less'
 
 # CVS
