@@ -1,0 +1,3 @@
+# vim:ft=muttrc:
+
+folder-hook =uiuc 'set from=sengelha@uiuc.edu; set signature=~/.signature.uiuc'

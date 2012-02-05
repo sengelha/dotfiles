@@ -1,0 +1,131 @@
+# muttrc
+
+set   abort_nosubject=no
+set   abort_unmodified=yes
+set   alias_file="~/.mutt/aliases"
+set   alias_format="%4n %t %-10a %r"
+set   allow_8bit
+# set   alternates=""
+set noarrow_cursor
+set   ascii_chars
+set noaskbcc
+set noaskcc
+# set   attach_format="%u%D%I %t%4n %T%.40d%> [%.7m/%.10M, %.6e%?C?, %C?, %s] "
+# set   attach_sep="\n"
+# set   attach_split
+set   attribution="* %n (%a) [%(%Y-%m-%d %H:%M)]:"
+set noautoedit
+set noauto_tag
+set nobeep
+set nobeep_new
+# set   bounce_delivered
+# set   charset="iso-8859-1"
+set   check_new
+set   collapse_unread
+# set nouncollapse_jump
+# set   confirmappend
+# set   confirmcreate
+set   copy=yes
+# set   date_format="!%a, %b %d, %Y at %I:%M:%S%p %Z" 
+# set   default_hook="~f %s !~P | (~P ~C %s)" 
+set   delete=yes
+set   delete_untag
+# set   dotlock_program="/usr/local/bin/mutt_dotlock"
+# set   dsn_notify="failure,delay,success"
+# set   dsn_return="hdrs"
+set   edit_headers
+set   editor="~/bin/editmailnews %s"
+# set noencode_from
+set   envelope_from
+# set   escape="!"
+set   fast_reply
+set nofcc_attach
+set nofcc_clear
+set   folder="/var/mail"
+set   folder_format="%N %F %2l %-8.8u %-8.8g %8s %d %f"
+set   followup_to
+set noforce_name
+set   forward_decode
+set   forward_format="[%a: %s]"
+set noforward_quote
+set   from="sengelha@yahoo.com"
+# set   gecos_mask="^[^,]*" 
+# set   hdrs
+set noheader
+set   help
+set nohidden_host
+set   history=20
+set   honor_followup_to
+# set   hostname=""
+# set noignore_list_reply_to
+set   implicit_autoview
+set   include=yes
+set   indent_string="> "
+# set   in_reply_to="%i; from %a on %{!%a, %b %d, %Y at %I:%M:%S%p %Z}" 
+# set   index_format="%4C %Z %{%b %d} %-15.15L (%4l) %s" 
+set   ispell="/usr/local/bin/ispell"
+# set   locale="C"
+set   mail_check=5
+set   mailcap_path="~/.mutt/mailcap"
+# set   mailcap_sanitize
+# set   mark_old
+# set   markers
+# set   mask="!^\.[^.]"
+# set   mbox="~/.mail/mailboxes/INBOX/"
+set   mbox_type=mbox
+set nometoo
+set   menu_scroll
+# set   message_format="%s"
+set nometa_key
+set   mh_purge
+# set   mime_forward=no
+# set nomime_forward_decode
+# set   mime_forward_rest=yes
+# set   mix_entry_format="%4n %c %-16s %a"
+# set   mixmaster="mixmaster"
+set   move=no
+set   pager=builtin
+set   pager_context=1
+# set   pager_format="-%Z- %C/%m: %-20.20n %s" 
+set   pager_index_lines=5
+# set nopager_stop
+set nopgp_autosign
+# set   point_new
+set   postpone=ask-yes
+set   postponed="~/.mail/mailboxes/drafts"
+set   print=ask-no
+set   quit=yes
+set   quote_regexp="^[ \t]*([a-zA-Z\. \t]*[>}]|[:|])"
+set   record=~/.mail/mailboxes/sent
+set   reply_to=ask-yes
+set   signature="~/.signatures/yahoo"
+#set   smtp_auth_username="sengelha"
+#set   smtp_auth_password="dale0623"
+#set   smtp_host="smtp.mail.yahoo.com"
+
+# Use ssh tunnelling to avoid port 25 blockage
+# Start with ssh -L 8025:smtp.mail.yahoo.com:25 dt.brownforces.org
+#set   smtp_host="localhost"
+#set   smtp_port=8025
+
+set   sort=threads
+set   status_on_top
+set nostrict_threads
+set   tilde
+# set   url_regexp="((http|ftp)://|mailto:|file:/)[^ \n\t>]+"
+
+# Headers
+ignore *
+unignore Date From To Cc Subject Organization
+hdr_order From Date: From: To: Cc: Subject:
+
+source ~/.mutt/aliases
+source ~/.mutt/mailboxes.rc
+source ~/.mutt/colors.rc
+source ~/.mutt/gpg.rc
+source ~/.mutt/keybindings.rc
+source ~/.mutt/uiuc.rc   # When entering UIUC folder, change settings to UIUC
+
+# Add Homer Simpson X-Face header to e-mails
+my_hdr X-Face: *A{%->08frcej]'gm\;C(iI>,gA^(wV.7lN.*QR(?p)z[Ea]ay5$%7}^<oy(T\\PsC$9Oq5GO_Bcl'pq%J:)5:^FR"*0!{+J5@=tY(V?\\C|"F
+my_hdr X-Operating-System: `uname -s`/`uname -p` `uname -r`

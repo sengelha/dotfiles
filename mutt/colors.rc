@@ -1,0 +1,20 @@
+# vim:ft=muttrc:
+
+# Colors
+color  body            brightmagenta   black   "[-a-z_0-9.]+@[-a-z_0-9.]+"
+color  body            brightyellow    black   "^Good signature"
+color  body            brightwhite     red     "^Bad signature from.*"
+color  error           brightred       black
+color  hdrdefault      green           black
+color  header          brightyellow    black   "^from:"
+color  header          brightyellow    black   "^subject:"
+color  index           white           black   ~O
+color  index           white           black   ~R
+color  index           brightcyan      black   ~N
+color  index           brightred       black   ~D
+color  indicator       white           red
+color  quoted          green           black
+color  signature       brightred       black
+color  status          white           blue
+color  tilde           brightmagenta   black
+color  tree            brightmagenta   black

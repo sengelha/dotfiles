@@ -1,0 +1,21 @@
+# vim:ft=muttrc:
+
+# Keybindings
+bind index <pageup>   previous-page
+bind index <pagedown> next-page
+bind pager <pageup>   previous-page
+bind pager <pagedown> next-page
+macro pager \ef "|view-x-face.sh\n"
+
+macro index X "<toggle-new>"
+
+# N = not spam, S = spam
+# The simple operation of using pipe-message to bogofilter doesn't work
+# correctly because it doesn't send full headers by default.  Instead,
+# save the messages to a "false positives" and "false negatives" mailbox
+# and a cron job will pick these up periodically and adjust the bogofilter
+# weights accordingly.
+macro index N "<save-message>=spam-false-positives\ny"
+macro pager N "<save-message>=spam-false-positives\ny"
+macro index S "<save-message>=spam-false-negatives\ny"
+macro pager S "<save-message>=spam-false-negatives\ny"
