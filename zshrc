@@ -3,12 +3,24 @@
 # Interactive ZSH login script.  Sets up zsh for interactive use, including
 # aliases, colors, prompts, key bindings, tab completion, etc.
 
-# Mac OS X fink support
-if [[ -r /sw/bin/init.sh ]]; then
-  source /sw/bin/init.sh
-fi
+# Initialize colors.
+autoload -U colors
+colors
 
-[[ -r $HOME/.zsh/zshfunc ]] && source $HOME/.zsh/zshfunc
+# Autoload zsh functions
+fpath=(~/.zsh/functions $fpath)
+autoload -U ~/.zsh/functions/*(:t)
+
+# Enable auto-execution of functions.
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+typeset -ga chpwd_functions
+
+# Append git functions needed for prompt.
+preexec_functions+='preexec_update_git_vars'
+precmd_functions+='precmd_update_git_vars'
+chpwd_functions+='chpwd_update_git_vars'
+
 [[ -r $HOME/.zsh/zshvars ]] && source $HOME/.zsh/zshvars
 [[ -r $HOME/.zsh/zshopts ]] && source $HOME/.zsh/zshopts
 [[ -r $HOME/.zsh/zshalias ]] && source $HOME/.zsh/zshalias

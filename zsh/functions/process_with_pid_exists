@@ -1,0 +1,17 @@
+typeset pid="$1"
+
+if [[ -n $pid ]]; then
+  [[ -d /proc/$pid ]] && return 0
+
+  typeset ps_list="`(ps auxwww | awk '{print $2}') 2> /dev/null`"
+  if [[ -n $ps_list ]]; then
+    if echo $ps_list | grep $pid > /dev/null; then
+      return 0
+    else
+      return 1
+    fi
+  fi
+fi
+
+echo "ERROR: Cannot determine if process "$pid" exists!" 1>&2
+return 2

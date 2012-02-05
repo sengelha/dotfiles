@@ -1,0 +1,11 @@
+typeset exe="$1"
+
+if [ x$exe = x ]; then
+  return 1
+fi
+
+if ! which $exe > /dev/null 2>&1; then
+  return 1
+fi
+
+return 0

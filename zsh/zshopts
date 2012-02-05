@@ -20,6 +20,7 @@ setopt \
          magicequalsubst\
          mailwarning\
          notify\
+         prompt_subst\
          pushdignoredups\
          pushdminus\
          pushdsilent\

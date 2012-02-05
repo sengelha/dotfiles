@@ -4,8 +4,8 @@
 
 # ZSH settings
 export LOGCHECK='300'
-export PS1='[%! %n@%m]%# '
-export RPS1='%(?..< %? > )%~'
+export PROMPT='[%! %n@%m]%# '
+export RPROMPT=$'%{${fg[blue]}%}%B%~%b$(prompt_git_info)%{${fg[default]}%} '
 
 # Locale
 # Force sorting of ls to match C order so that dotfiles come first
