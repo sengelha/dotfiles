@@ -1,0 +1,5 @@
+XTerm*foreground: AntiqueWhite
+XTerm*background: Black
+XTerm*geometry: 80x40
+
+Emacs.default.attributeFont: 6x13
