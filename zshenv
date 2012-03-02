@@ -8,8 +8,10 @@ for i in ~/bin /opt/local/bin /usr/dcs/software/supported/bin /usr/dcs/applicati
   [[ -d $i ]] && path=($path $i)
 done
 
-for f in /etc/paths.d/*; do
-  path=($path `cat $f`)
-done
+if [ -d /etc/paths.d ]; then
+  for f in /etc/paths.d/*; do
+    path=($path `cat $f`)
+  done
+fi
 
 export PATH
