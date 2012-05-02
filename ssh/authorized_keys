@@ -2,3 +2,7 @@
 # This key is from the Macbook Air
 #
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxg52kBBPxPII1B1AL05loAEbA95mU1c+gpv8wUh85299/iRASqcIOd3pnLrOfqPZYpMkjvBY0DJFyauNQbCBtw/txC1NKF+LWNhWUeeEj0hTHTFaMYLOjOaebAtcmJnZqeGIlA+rIayv5ahbOtLVAv9jthdcf6NY3hGMKWe9zPhyd31Z8yTjkqKVcMMxKgF/XNn1GMsswPS4Oh1z+3GVKN+9twTIbyh2X5AbblB7qGlN/L2Hix0j0oNtMc5Mg9SaRNM5h+7qqRzs055eEQliplwTK3pUZXy/dP1FjdO+vgMR5wZ5A5kymirMJxgjl4mM3JKi/W7yXbGBKEdu0dFXF sengelh@administrators-MacBook-Air.local
+#
+# This key is from Steve's HP laptop
+#
+ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAgHIljfELEWWgnT2Gtl7glPoj2LgJTEocSxOmHmj4t2bLRjLszp8lz7anO78YVcYlyCdRHkL7keQ0huEbltGDozk44tWMCcwRfCTgD/38zF/fUWC6r865w3GeH626iMtM6f2iYGtzqJyK32kSK0lCny/WpT9whfg3yWXKlTj1JZU= Steve's HP Laptop
