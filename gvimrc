@@ -3,7 +3,7 @@
 set   lines=40
 set   mousehide
 
-colorscheme desert
+colors peaksea
 
 if has("mac")
   set guifont=Monaco:h10

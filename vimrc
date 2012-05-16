@@ -33,6 +33,7 @@ set   smartcase
 set nosmartindent " si is meant for c-like languages
 set   suffixes=.aux,.bak,.dvi,.log,.ps,.swp,~,.o,.obj,.info,.swp
 set   tabstop=8
+set   tags=tags;/
 set   title
 set   undolevels=1000
 set   updatecount=200
