@@ -64,3 +64,7 @@ set runtimepath=~/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,~/.vim/afte
 
 filetype on
 filetype plugin on
+
+" Custom filetypes
+au BufRead,BufNewFile *.vcl :set ft=vcl
+au! Syntax vcl source ~/.vim/syntax/vcl.vim
