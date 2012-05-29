@@ -68,3 +68,5 @@ filetype plugin on
 " Custom filetypes
 au BufRead,BufNewFile *.vcl :set ft=vcl
 au! Syntax vcl source ~/.vim/syntax/vcl.vim
+au BufRead,BufNewFile *.pp :set ft=puppet
+au! Syntax puppet source ~/.vim/syntax/puppet.vim
