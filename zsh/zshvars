@@ -46,3 +46,11 @@ else
 fi
 
 [[ -d ${HOME}/.terminfo ]] && export TERMINFO=${HOME}'/.terminfo'
+
+for i in /opt/apache-maven-3.0.4; do
+  if [[ -d $i ]]; then
+    export M2_HOME=$i
+    break
+  fi
+done
+unset i
