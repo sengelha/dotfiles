@@ -1,0 +1,17 @@
+export PS1="[\# \u@\h:\w]\$ "
+
+# Force sorting of ls to match C order so that dotfiles come first
+export LC_COLLATE="C"
+
+# Pager
+export LESS='-giMQsFXR'
+export PAGER='less'
+
+# Editors
+if isexec vim; then
+  export EDITOR='vim'
+  export VISUAL='vim'
+else
+  export EDITOR='vi'
+  export VISUAL='vi'
+fi

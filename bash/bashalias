@@ -1,0 +1,66 @@
+# bashalias
+#
+# Bash aliases
+
+alias cd..='cd ..'
+alias cd...='cd ../..'
+alias cd...='cd ../../..'
+
+isexec gnufind && alias find='gnufind'
+isexec gnutar && alias tar='gnutar'
+
+if isexec vim; then
+  alias vi='vim'
+else
+  alias vim='vi'
+fi
+
+if grep --version |& grep "GNU grep" >/dev/null 2>&1; then
+  alias grep='grep --color'
+fi
+
+if isexec gnudf; then
+  alias df='gnudf -h'
+elif isexec gdf; then
+  alias df='gdf -h'
+elif df -h >/dev/null 2>&1; then
+  alias df='df -h'
+fi
+
+if isexec gnuls; then
+  alias ls='gnuls --color=auto -F'
+elif isexec gls; then
+  alias ls='gls --color=auto -F'
+elif ls --version |& grep "GNU fileutils" >/dev/null 2>&1; then
+  alias ls='ls --color=auto -F'
+elif ls --version |& grep "Free Software Foundation" > /dev/null 2>&1; then
+  alias ls='ls --color=auto -F'
+fi
+
+if isexec gnufind; then
+  alias find='gnufind'
+fi
+
+if make --version |& grep "GNU Make" >/dev/null 2>&1; then
+  if ! isexec gmake; then
+    alias gmake='make'
+  fi
+  if ! isexec gnumake; then
+    alias gnumake='make'
+  fi
+fi
+
+if m4 --version < /dev/null |& grep "GNU m4" >/dev/null 2>&1; then
+  if ! isexec gm4; then
+    alias gm4='m4'
+  fi
+  if ! isexec gnum4; then
+    alias gnum4='m4'
+  fi
+fi
+
+if ! isexec xemacs; then
+  if isexec xemacs21; then
+    alias xemacs='xemacs21'
+  fi
+fi
