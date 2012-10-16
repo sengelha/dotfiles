@@ -1,3 +1,19 @@
+# bashenv: Set bash environment variables
+
+# Path
+PATH=""
+for d in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin /opt/local/bin; do
+  if [ -d $d ]; then
+    if [ -z "$PATH" ]; then
+      PATH="$d"
+    else
+      PATH="$PATH:$d"
+    fi
+  fi
+done
+export PATH
+
+# Prompt
 export PS1="[\# \u@\h:\w]\$ "
 
 # Force sorting of ls to match C order so that dotfiles come first
