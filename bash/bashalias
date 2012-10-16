@@ -15,7 +15,7 @@ else
   alias vim='vi'
 fi
 
-if grep --version |& grep "GNU grep" >/dev/null 2>&1; then
+if grep --version 2>/dev/null | grep "GNU grep" >/dev/null 2>&1; then
   alias grep='grep --color'
 fi
 
@@ -31,9 +31,9 @@ if isexec gnuls; then
   alias ls='gnuls --color=auto -F'
 elif isexec gls; then
   alias ls='gls --color=auto -F'
-elif ls --version |& grep "GNU fileutils" >/dev/null 2>&1; then
+elif ls --version 2>/dev/null | grep "GNU fileutils" >/dev/null 2>&1; then
   alias ls='ls --color=auto -F'
-elif ls --version |& grep "Free Software Foundation" > /dev/null 2>&1; then
+elif ls --version 2>/dev/null | grep "Free Software Foundation" > /dev/null 2>&1; then
   alias ls='ls --color=auto -F'
 fi
 
@@ -41,7 +41,7 @@ if isexec gnufind; then
   alias find='gnufind'
 fi
 
-if make --version |& grep "GNU Make" >/dev/null 2>&1; then
+if make --version 2>/dev/null | grep "GNU Make" >/dev/null 2>&1; then
   if ! isexec gmake; then
     alias gmake='make'
   fi
@@ -50,7 +50,7 @@ if make --version |& grep "GNU Make" >/dev/null 2>&1; then
   fi
 fi
 
-if m4 --version < /dev/null |& grep "GNU m4" >/dev/null 2>&1; then
+if m4 --version < /dev/null 2>/dev/null | grep "GNU m4" >/dev/null 2>&1; then
   if ! isexec gm4; then
     alias gm4='m4'
   fi
