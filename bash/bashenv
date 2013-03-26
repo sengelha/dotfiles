@@ -2,7 +2,7 @@
 
 # Path
 PATH=""
-for d in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin /opt/local/bin $HOME/bin; do
+for d in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin /opt/local/bin /opt/atlassian-plugin-sdk/bin $HOME/bin; do
   if [ -d $d ]; then
     if [ -z "$PATH" ]; then
       PATH="$d"
