@@ -13,6 +13,11 @@ for d in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin /opt/local
 done
 export PATH
 
+if [ -x /usr/libexec/java_home ]; then
+  JAVA_HOME=`/usr/libexec/java_home`
+fi
+export JAVA_HOME
+
 # Prompt
 export PS1="[\# \u@\h:\w]\$ "
 
