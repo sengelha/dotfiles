@@ -35,6 +35,9 @@ elif ls --version 2>/dev/null | grep "GNU fileutils" >/dev/null 2>&1; then
   alias ls='ls --color=auto -F'
 elif ls --version 2>/dev/null | grep "Free Software Foundation" > /dev/null 2>&1; then
   alias ls='ls --color=auto -F'
+elif ls -G -d . >/dev/null 2>&1; then
+  # BSD ls
+  alias ls='ls -GF'
 fi
 
 if isexec gnufind; then
