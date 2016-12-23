@@ -9,7 +9,7 @@ for i in ~/bin /opt/local/bin /usr/dcs/software/supported/bin /usr/dcs/applicati
 done
 
 if [ -d /etc/paths.d ]; then
-  for f in /etc/paths.d/*; do
+  for f in /etc/paths.d/*(.N); do
     path=($path `cat $f`)
   done
 fi
