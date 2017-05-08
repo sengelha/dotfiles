@@ -15,3 +15,7 @@ if [ -d /etc/paths.d ]; then
 fi
 
 export PATH
+
+if [ -x $HOME/emsdk/emsdk_env.sh ]; then
+    source $HOME/emsdk/emsdk_env.sh >/dev/null
+fi
