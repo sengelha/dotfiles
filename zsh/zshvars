@@ -45,8 +45,9 @@ else
   export VISUAL='vi'
 fi
 
-# CLICOLOR is used by Mac OS X ls to colorize output
+# CLICOLOR and LSCOLORS are used by Mac OS X ls to colorize output
 export CLICOLOR=1
+export LSCOLORS=ExGxBxDxCxEgEdxbxgxcxd
 
 [[ -d ${HOME}/.terminfo ]] && export TERMINFO=${HOME}'/.terminfo'
 
