@@ -64,6 +64,14 @@
       (append '(("\\.nes$" . hexl-mode))
 	      auto-mode-alist))
 
+(require 'cmake-mode)
+(require 'cmake-font-lock)
+(setq auto-mode-alist
+      (append '(("CMakeLists\\.txt\\'" . cmake-mode))
+	      '(("\\.cmake\\'" . cmake-mode))
+	      auto-mode-alist))
+(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+
 (setq c-default-style "bsd")
 (add-hook 'c-mode-common-hook '(lambda()
 				 (setq c-basic-offset 4)
@@ -112,6 +120,7 @@
 
 (setq require-final-newline t)
 (setq-default show-trailing-whitespace t)
+(require 'whitespace)
 
 ;;}}}
 ;;{{{ Parentheses
