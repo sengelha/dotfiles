@@ -1,0 +1,7 @@
+[user]
+	email = sengelha@gmail.com
+	name = Steven Engelhardt
+[push]
+	default = simple
+[credential]
+	helper = store
