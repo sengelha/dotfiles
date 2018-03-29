@@ -115,6 +115,10 @@
 (color-theme-initialize)
 (color-theme-charcoal-black)
 
+(if running-on-windows
+  (set-face-attribute 'default nil :family "Consolas" :height 100)
+)
+
 ;;}}}
 ;;{{{ Whitespace
 
@@ -178,5 +182,12 @@
   (while buf_list
     (kill-buffer (car buf_list))
     (setq buf_list (cdr buf_list))))
+
+;;}}}
+;;{{{ Speedbar
+
+(when window-system          ; start speedbar if we're using a window system
+  (speedbar t)
+)
 
 ;;}}}
