@@ -105,7 +105,51 @@
 (require 'guess-offset)
 
 ;;}}}
-;;{{{ Faces
+;;{{{ Fonts and Colors
+
+(defun my-dpi ()
+  (let* ((attrs (car (display-monitor-attributes-list)))
+         (size (assoc 'mm-size attrs))
+         (sizex (cadr size))
+         (res (cdr (assoc 'geometry attrs)))
+         (resx (- (caddr res) (car res)))
+         dpi)
+    (catch 'exit
+      ;; in terminal
+      (unless sizex
+        (throw 'exit 10))
+      ;; on big screen
+      (when (> sizex 1000)
+        (throw 'exit 10))
+      ;; DPI
+      (* (/ (float resx) sizex) 25.4))))
+
+(defun my-preferred-font-size ()
+  (let ( (dpi (my-dpi)) )
+    (cond
+     ((< dpi 110) 10)
+     ((< dpi 130) 11)
+     ((< dpi 160) 12)
+     (t 12))))
+
+(defvar my-preferred-font-size (my-preferred-font-size))
+
+(defvar my-regular-font
+  (cond
+   ((eq window-system 'x)
+    (let ((candidate-font (format "DejaVu Sans Mono-%d:weight=normal" my-preferred-font-size)))
+      (if (and (fboundp 'find-font) (find-font (font-spec :name candidate-font)))
+	  candidate-font "7x14")))
+   ((eq window-system 'w32)
+    (let ((candidate-font (format "Consolas-%d" my-preferred-font-size)))
+      (if (and (fboundp 'find-font) (find-font (font-spec :name candidate-font)))
+	  candidate-font (format "Courier New-%d" my-preferred-font-size))))))
+
+; Set the font for this frame and all new frames to be my-regular-font
+(cond
+ ((or (eq window-system 'x) (eq window-system 'w32))
+  (set-frame-font my-regular-font)
+  (add-to-list 'default-frame-alist (cons 'font my-regular-font))))
 
 (if (fboundp 'global-font-lock-mode)
     (global-font-lock-mode 1) ; Emacs
@@ -114,10 +158,6 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-charcoal-black)
-
-(if running-on-windows
-  (set-face-attribute 'default nil :family "Consolas" :height 100)
-)
 
 ;;}}}
 ;;{{{ Whitespace
@@ -187,6 +227,9 @@
 ;;{{{ Speedbar
 
 (when window-system          ; start speedbar if we're using a window system
+  (require 'speedbar)
+  (add-to-list 'speedbar-frame-parameters '(width . 40))
+  (setq speedbar-show-unknown-files t)
   (speedbar t)
 )
 
