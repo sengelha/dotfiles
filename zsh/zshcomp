@@ -30,3 +30,6 @@ compctl -g '*.(tar|tgz|tar.gz|tar.bz2|tar.Z)' + -g '*(-/)' gnutar gtar tar
 compctl -g '*.(gz|z|Z|t[agp]z|tarZ|tz)' + -g '*(-/)' gunzip gzcat zcat
 compctl -g '*.bz2' + -g '*(-/)' bunzip2 bunzip bzcat bzless
 compctl -k hostnames -x 'c[-1,-l]' -k usernames -- + -k usernames -S '@' -x 'n[1,@]' -k hostnames -- ssh # zsh3
+
+# Add ~/.zsh/completion directory to completions
+fpath[1,0]=~/.zsh/completion
