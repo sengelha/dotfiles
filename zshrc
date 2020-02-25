@@ -7,8 +7,8 @@
 autoload -U colors
 colors
 
-# Autoload zsh functions
-fpath=(~/.zsh/functions $fpath)
+# Autoload zsh functions and completions
+fpath=(~/.zsh/completion ~/.zsh/functions $fpath)
 autoload -U ~/.zsh/functions/*(:t)
 
 # Enable auto-execution of functions.
