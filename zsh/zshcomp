@@ -9,10 +9,9 @@ if [[ -r ~/.hosts ]]; then
   hostnames=(`cat ~/.hosts | sed -e 's/.*@//'`)
 fi
 
-# Default completion
-#compctl -C -c + -q -S "=" -E -v # zsh3
-
 # Initialize autocomplete for everything in ~/.zsh/completion
+# Mac OS X requires compinit to be initialized
+autoload -Uz compinit
 compinit
 
 compctl -z -P '%' bg                                
