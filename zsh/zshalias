@@ -2,7 +2,11 @@
 #
 # ZSH aliases
 
-alias bazel='nocorrect bazel'
+if isexec bazelisk; then
+  alias bazel='nocorrect bazelisk'
+else
+  alias bazel='nocorrect bazel'
+fi
 alias cd..='cd ..'
 alias cd...='cd ../..'
 alias cd....='cd ../../..'
