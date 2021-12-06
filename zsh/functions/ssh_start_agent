@@ -1,2 +1,0 @@
-ssh-agent >! ~/.ssh/ssh-agent.out
-eval `cat ~/.ssh/ssh-agent.out` > /dev/null

@@ -1,7 +1,0 @@
-if isexec fortune; then
-  if [[ -r /usr/share/games/fortune/fortunes-o ]]; then
-    fortune -a
-  else
-    fortune
-  fi
-fi
