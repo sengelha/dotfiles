@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/sengelha/.oh-my-zsh"
@@ -9,15 +9,16 @@ export ZSH="/home/sengelha/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_IGNORED=()
-#ZSH_THEME_RANDOM_CANDIDATES=(apple awesomepanda clean crunch dallas eastwood edvardm essembeh flazz)
-#ZSH_THEME_RANDOM_QUIET="true"
+
+# Good Themes: mira
+# OK Themes: dieter jreese nebirhos ys fino
+# Bad Themes: robbyrussell frontcube rixius
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+ZSH_THEME_RANDOM_CANDIDATES=(apple awesomepanda clean cloud crunch daveverwer eastwood edvardm essembeh fishy flazz fletcherm fwalch gallifrey gallois gentoo geoffgarside jaischeema jonathan jreese kolo lukerandall maran mgutz mh michelebologna minimal pygmalion skaro tonotdo wedisagree zhann)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -73,7 +74,7 @@ ZSH_THEME_RANDOM_IGNORED=()
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git golang ssh-agent)
+plugins=(bazel dirhistory git golang zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,6 +86,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export EDITOR='vim'
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
