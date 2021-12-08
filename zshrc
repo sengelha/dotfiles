@@ -74,7 +74,7 @@ ZSH_THEME_RANDOM_CANDIDATES=(apple awesomepanda clean cloud crunch daveverwer ea
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bazel dirhistory git golang zsh-autosuggestions)
+plugins=(bazel dirhistory git golang ssh-agent zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
