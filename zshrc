@@ -32,6 +32,9 @@ ZSH_THEME_RANDOM_CANDIDATES=(apple awesomepanda clean cloud crunch daveverwer ea
 # zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
+# Enable agent forwarding support
+zstyle :omz:plugins:ssh-agent agent-forwarding yes
+
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
 
