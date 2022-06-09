@@ -8,7 +8,7 @@ export ZSH="/home/sengelha/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="simple"
+ZSH_THEME="random"
 
 # Good Themes: mira
 # OK Themes: dieter jreese nebirhos ys fino
@@ -18,7 +18,7 @@ ZSH_THEME="simple"
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
-ZSH_THEME_RANDOM_CANDIDATES=(apple awesomepanda clean cloud crunch daveverwer eastwood edvardm essembeh fishy flazz fletcherm fwalch gallifrey gallois gentoo geoffgarside jaischeema jonathan jreese kolo lukerandall maran mgutz mh michelebologna minimal pygmalion skaro tonotdo wedisagree zhann)
+ZSH_THEME_RANDOM_CANDIDATES=(maran geoffgarside tonotdo michelebologna)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
