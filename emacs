@@ -109,6 +109,9 @@
 ;; YAML
 (use-package yaml-mode)
 
+;; Makefile mode
+(require 'make-mode)
+
 ;; Rainbow delibeters for pretty () matching
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
