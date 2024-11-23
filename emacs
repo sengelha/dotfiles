@@ -49,8 +49,12 @@
 ;; Load packages
 
 ;; Company mode (code completion framework)
-(use-package company)
-(add-hook 'after-init-hook 'global-company-mode)
+(use-package company
+  :init (setq company-idle-delay 0.1
+	      company-minimum-prefix-length 1
+	      company-frontends '(company-pseudo-tooltip-frontend
+				  company-echo-metadata-frontend))
+  :config (global-company-mode))
 
 ;; LSP mode (IDE)
 (use-package lsp-mode
