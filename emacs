@@ -61,6 +61,11 @@
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
   :config (lsp-enable-which-key-integration t))
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+            (if (derived-mode-p 'c-mode 'c++-mode)
+                'lsp
+              )))
 
 ;; Projectile for project interaction
 (use-package projectile
@@ -232,9 +237,15 @@
 (use-package flymake)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; cpputils-cmake
+(use-package cpputils-cmake)
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+            (if (derived-mode-p 'c-mode 'c++-mode)
+                (cppcm-reload-all)
+              )))
+
 ;; C/C++
-(add-hook 'c-mode-hook 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
 
 ;; C#
 (use-package csharp-mode) ;; C# mode is part of emacs as of emacs 29 but we still use emacs 27 in some places
