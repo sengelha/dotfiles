@@ -48,6 +48,10 @@
 
 ;; Load packages
 
+;; Company mode (code completion framework)
+(use-package company)
+(add-hook 'after-init-hook 'global-company-mode)
+
 ;; Projectile for project interaction
 (use-package projectile
   :diminish projectile-mode
