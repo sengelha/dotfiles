@@ -105,6 +105,10 @@
   :custom-face
   (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face)))))
 
+;; Flymake
+(use-package flymake)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
 ;; C/C++
 (add-hook 'c-mode-hook 'lsp)
 (add-hook 'c++-mode-hook 'lsp)
