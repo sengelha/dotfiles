@@ -52,6 +52,12 @@
 (use-package company)
 (add-hook 'after-init-hook 'global-company-mode)
 
+;; LSP mode (IDE)
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :init (setq lsp-keymap-prefix "C-c l")
+  :config (lsp-enable-which-key-integration t))
+
 ;; Projectile for project interaction
 (use-package projectile
   :diminish projectile-mode
@@ -98,6 +104,10 @@
   (setq markdown-fontify-code-blocks-natively t)
   :custom-face
   (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face)))))
+
+;; C/C++
+(add-hook 'c-mode-hook 'lsp)
+(add-hook 'c++-mode-hook 'lsp)
 
 ;; C#
 (use-package csharp-mode) ;; C# mode is part of emacs as of emacs 29 but we still use emacs 27 in some places
