@@ -19,7 +19,18 @@
 (defun font-candidate (&rest fonts)
   "Return existing font which first match."
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
-(set-face-attribute 'default nil :font (font-candidate '"FiraCode-14:weight=normal" "Consolas-14:weight=normal" "DejaVu Sans Mono-14:weight=normal" "Menlo-18:weight=normal"))
+(let ((fixed-font (font-candidate "Consolas" "Menlo" "FiraCode" "DejaVu Sans Mono"))
+      (variable-font (font-candidate "Helvetica" "Arial"))
+      (font-height 160))
+  (set-face-attribute 'default nil
+		      :font fixed-font
+		      :height font-height)
+  (set-face-attribute 'fixed-pitch nil
+		      :font fixed-font
+		      :height font-height)
+  (set-face-attribute 'variable-pitch nil
+		      :font variable-font
+		      :height font-height))
 
 ;; Add homebrew to PATH
 (when (file-directory-p "/opt/homebrew/bin")
