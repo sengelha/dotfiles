@@ -283,12 +283,14 @@
 ;; C/C++
 
 ;; C#
-(use-package csharp-mode) ;; C# mode is part of emacs as of emacs 29 but we still use emacs 27 in some places
-(defun my-csharp-mode-fn ()
+(require 'csharp-mode)
+(defun my-csharp-mode-hook ()
   "function that runs when csharp-mode is initialized for a buffer."
   (setq indent-tabs-mode t)
   (setq tab-width 4)
+  (electric-pair-local-mode 1)
   )
+(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
 
 ;; CMake
 (use-package cmake-mode)
