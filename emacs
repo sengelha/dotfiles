@@ -35,6 +35,10 @@
 		      :family variable-font
 		      :height variable-font-height))
 
+;; Set window size
+(if (window-system)
+    (set-frame-size (selected-frame) 180 80))
+
 ;; Add homebrew to PATH
 (when (file-directory-p "/opt/homebrew/bin")
   (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
