@@ -215,8 +215,15 @@
 
 ;; Vertico (autocompletion)
 (use-package vertico
-  :init
-  (vertico-mode))
+  :config
+  (setq vertico-cycle t)
+  (setq vertico-resize nil)
+  (vertico-mode 1))
+
+;; Marginalia: Provide helpful annotations next to completion candidates
+(use-package marginalia
+  :config
+  (marginalia-mode 1))
 
 ;; Which key for interactive help when using C-c, etc.
 (use-package which-key
