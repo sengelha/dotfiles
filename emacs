@@ -14,6 +14,7 @@
 (setq line-number-mode t)
 (global-display-line-numbers-mode t)
 
+;; Set preferred fonts
 (require 'cl-lib)
 (defun font-candidate (&rest fonts)
   "Return existing font which first match."
@@ -61,12 +62,13 @@
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
-  :config (lsp-enable-which-key-integration t))
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-            (if (derived-mode-p 'c-mode 'c++-mode)
-                'lsp
-              )))
+  :config
+  (lsp-enable-which-key-integration t)
+  (add-hook 'c-mode-common-hook
+	    (lambda ()
+              (if (derived-mode-p 'c-mode 'c++-mode)
+                  'lsp
+		))))
 
 ;; Projectile for project interaction
 (use-package projectile
@@ -79,7 +81,8 @@
   (setq projectile-switch-project-action #'projectile-dired))
 
 ;; Git
-(use-package magit)
+(use-package magit
+  :defer t)
 
 ;; Treemacs (folder tree)
 (use-package treemacs
