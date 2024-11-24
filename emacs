@@ -224,6 +224,12 @@
   (setq vertico-resize nil)
   (vertico-mode 1))
 
+;; Orderless
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 ;; Marginalia: Provide helpful annotations next to completion candidates
 (use-package marginalia
   :config
