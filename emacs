@@ -20,17 +20,16 @@
   "Return existing font which first match."
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (let ((fixed-font (font-candidate "Consolas" "Menlo" "FiraCode" "DejaVu Sans Mono"))
-      (variable-font (font-candidate "Helvetica" "Arial"))
-      (font-height 160))
+      (variable-font (font-candidate "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial")))
   (set-face-attribute 'default nil
-		      :font fixed-font
-		      :height font-height)
+		      :family fixed-font
+		      :height 160)
   (set-face-attribute 'fixed-pitch nil
-		      :font fixed-font
-		      :height font-height)
+		      :family fixed-font
+		      :height 160)
   (set-face-attribute 'variable-pitch nil
-		      :font variable-font
-		      :height font-height))
+		      :family variable-font
+		      :height 140))
 
 ;; Add homebrew to PATH
 (when (file-directory-p "/opt/homebrew/bin")
