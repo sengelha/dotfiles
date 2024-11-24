@@ -21,8 +21,9 @@
 (set-face-attribute 'default nil :font (font-candidate '"FiraCode-14:weight=normal" "Consolas-14:weight=normal" "DejaVu Sans Mono-14:weight=normal" "Menlo-18:weight=normal"))
 
 ;; Add homebrew to PATH
-(setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
-(setq exec-path (append exec-path '("/opt/homebrew/bin")))
+(when (file-directory-p "/opt/homebrew/bin")
+  (setenv "PATH" (concat (getenv "PATH") ":/opt/homebrew/bin"))
+  (setq exec-path (append exec-path '("/opt/homebrew/bin"))))
 
 ;; Keybindings
 (global-set-key [(home)] 'beginning-of-line)
