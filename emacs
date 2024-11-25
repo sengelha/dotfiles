@@ -268,6 +268,15 @@
   :custom-face
   (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face)))))
 
+(defun my-markdown-mode-hook ()
+  "function that runs when markdown-mode is initialized for a buffer."
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4)
+  (setopt display-fill-column-indicator-column 130)
+  (display-fill-column-indicator-mode)
+  )
+(add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
+
 ;; Flymake
 (use-package flymake)
 (add-hook 'find-file-hook 'flymake-find-file-hook)
