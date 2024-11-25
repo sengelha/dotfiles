@@ -83,7 +83,6 @@
 ;; Treemacs (folder tree)
 (use-package treemacs
   :ensure t
-  :defer t
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -180,7 +179,7 @@
 (use-package treemacs-magit
   :after (treemacs magit))
 
-(treemacs-start-on-boot)
+(add-hook 'emacs-startup-hook 'treemacs)
 
 ;; Vertico (autocompletion)
 (use-package vertico
@@ -239,8 +238,13 @@
 ;; CMake
 (use-package cmake-mode)
 
-;; cpputils-cmake
-(use-package cpputils-cmake)
+;; flycheck: on-the-fly syntax checking
+(use-package flycheck
+  :init (global-flycheck-mode))
+
+;; cpputils-cmake: Syntax check and code-completion if you use cmake
+(use-package cpputils-cmake
+  :after (flycheck))
 (defun sengelha/cpputils-cmake-mode-hook ()
   (if (derived-mode-p 'c-mode 'c++-mode)
       (cppcm-reload-all)
