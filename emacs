@@ -287,7 +287,7 @@
 (use-package cpputils-cmake
   :hook (c-mode-common . sengelha/cpputils-cmake-mode-hook)
   :config
-  (defun sengelha/cpputils-cmake-mode-cook ()
+  (defun sengelha/cpputils-cmake-mode-hook ()
     (if (derived-mode-p 'c-mode 'c++-mode)
 	(cppcm-reload-all)
       )))
@@ -296,11 +296,10 @@
 
 ;; C#
 (require 'csharp-mode)
-(defun sengelha/csharp-mode-hook()
-  (setq indent-tabs-mode t)
-  (setq tab-width 4)
-  (electric-pair-local-mode 1))
-(add-hook 'csharp-mode-hook 'sengelha/csharp-mode-hook)
+(add-hook 'csharp-mode-hook (lambda ()
+			      (setq indent-tabs-mode t)
+			      (setq tab-width 4)
+			      (electric-pair-local-mode 1)))
 
 ;; C# .csproj support
 (use-package csproj-mode)
