@@ -302,6 +302,13 @@
   (electric-pair-local-mode 1))
 (add-hook 'csharp-mode-hook 'sengelha/csharp-mode-hook)
 
+;; C# .csproj support
+(use-package csproj-mode)
+
+;; dotnet mode
+(use-package dotnet
+  :hook (csharp-mode . 'dotnet-mode))
+
 ;; YAML
 (use-package yaml-mode)
 
