@@ -19,7 +19,7 @@
 (defun font-candidate (&rest fonts)
   "Return existing font which first match."
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
-(let* ((fixed-font (font-candidate "Inconsolata" "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
+(let* ((fixed-font (font-candidate "Inconsolata Nerd Font" "Inconsolata" "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
        (variable-font (font-candidate "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
        (fixed-font-height (cond ((>= (display-pixel-height) 2160) 200)
 				(t 140)))
@@ -75,29 +75,6 @@
 	      company-frontends '(company-pseudo-tooltip-frontend
 				  company-echo-metadata-frontend))
   :config (global-company-mode))
-
-;; LSP mode (IDE)
-(use-package lsp-mode
-  :commands (lsp lsp-deferred)
-  :init (setq lsp-keymap-prefix "C-c l")
-  :hook (c-mode-common . sengelha/lsp-mode-hook)
-  :config
-  (lsp-enable-which-key-integration t)
-  (defun sengelha/lsp-mode-hook()
-    (if (derived-mode-p 'c-mode 'c++-mode)
-	'lsp
-      ))
-  )
-
-;; Projectile for project interaction
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :init
-  (when (file-directory-p "~/proj/github/sengelha")
-    (setq projectile-project-search-path '("~/proj/github/sengelha")))
-  (setq projectile-switch-project-action #'projectile-dired))
 
 ;; Git
 (use-package magit
@@ -194,31 +171,14 @@
         ("C-x t C-t" . treemacs-find-file)
         ("C-x t M-t" . treemacs-find-tag)))
 
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
-
 (use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
+  :after (treemacs projectile))
 
 (use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
-  :ensure t)
+  :hook (dired-mode . treemacs-icons-dired-enable-once))
 
 (use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
-
-(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
-  :ensure t
-  :config (treemacs-set-scope-type 'Perspectives))
-
-(use-package treemacs-tab-bar ;;treemacs-tab-bar if you use tab-bar-mode
-  :after (treemacs)
-  :ensure t
-  :config (treemacs-set-scope-type 'Tabs))
+  :after (treemacs magit))
 
 (treemacs-start-on-boot)
 
@@ -264,49 +224,45 @@
 
 ;; Markdown
 (use-package markdown-mode
-  :hook (markdown-mode . sengelha/markdown-mode-hook)
   :config
   (setq markdown-fontify-code-blocks-natively t)
-  (defun sengelha/markdown-mode-hook()
-    (setq indent-tabs-mode nil)
-    (setq tab-width 4)
-    (setopt display-fill-column-indicator-column 130)
-    (display-fill-column-indicator-mode))
   :custom-face
   (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face))))
   )
-
-;; Flymake
-(use-package flymake
-  :hook (find-file . #'flymake-find-file-hook))
+(defun sengelha/markdown-mode-hook ()
+  (setq indent-tabs-mode nil)
+  (setq tab-width 4)
+  (setopt display-fill-column-indicator-column 130)
+  (display-fill-column-indicator-mode))
+(add-hook 'markdown-mode-hook 'sengelha/markdown-mode-hook)
 
 ;; CMake
 (use-package cmake-mode)
 
 ;; cpputils-cmake
-(use-package cpputils-cmake
-  :hook (c-mode-common . sengelha/cpputils-cmake-mode-hook)
-  :config
-  (defun sengelha/cpputils-cmake-mode-hook ()
-    (if (derived-mode-p 'c-mode 'c++-mode)
-	(cppcm-reload-all)
-      )))
+(use-package cpputils-cmake)
+(defun sengelha/cpputils-cmake-mode-hook ()
+  (if (derived-mode-p 'c-mode 'c++-mode)
+      (cppcm-reload-all)
+    ))
+(add-hook 'c-mode-common-hook 'sengelha/cpputils-cmake-mode-hook)
 
 ;; C/C++
 
 ;; C#
 (require 'csharp-mode)
-(add-hook 'csharp-mode-hook (lambda ()
-			      (setq indent-tabs-mode t)
-			      (setq tab-width 4)
-			      (electric-pair-local-mode 1)))
+(defun sengelha/my-csharp-mode-hook ()
+  (setq indent-tabs-mode t)
+  (setq tab-width 4)
+  (electric-pair-local-mode 1))
+(add-hook 'csharp-mode-hook 'sengelha/my-csharp-mode-hook)
 
 ;; C# .csproj support
 (use-package csproj-mode)
 
 ;; dotnet mode
-(use-package dotnet
-  :hook (csharp-mode . 'dotnet-mode))
+(use-package dotnet)
+(add-hook 'csharp-mode-hook 'dotnet-mode)
 
 ;; YAML
 (use-package yaml-mode)
