@@ -1,4 +1,4 @@
-SRC=$(shell find . -type f -o -type l | grep -v Makefile | grep -v .git/ )
+SRC=$(shell find . \( -type f -o -type l \) -not -path "./.git/*" -a -not -path "./Makefile")
 TARGETS=$(patsubst ./%,$(HOME)/.%,$(SRC))
 
 .PHONY: all
