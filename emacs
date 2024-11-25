@@ -19,11 +19,11 @@
 (defun font-candidate (&rest fonts)
   "Return existing font which first match."
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
-(let* ((fixed-font (font-candidate "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
+(let* ((fixed-font (font-candidate "Inconsolata" "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
        (variable-font (font-candidate "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
-       (fixed-font-height (cond ((= (display-pixel-height) 2160) 200)
+       (fixed-font-height (cond ((>= (display-pixel-height) 2160) 200)
 				(t 140)))
-       (variable-font-height (cond ((= (display-pixel-height) 2160) 160)
+       (variable-font-height (cond ((>= (display-pixel-height) 2160) 160)
 				   (t 120))))
   (set-face-attribute 'default nil
 		      :family fixed-font
