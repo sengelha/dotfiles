@@ -80,13 +80,14 @@
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
+  :hook (c-mode-common . sengelha/lsp-mode-hook)
   :config
   (lsp-enable-which-key-integration t)
-  (add-hook 'c-mode-common-hook
-	    (lambda ()
-              (if (derived-mode-p 'c-mode 'c++-mode)
-                  'lsp
-		))))
+  (defun sengelha/lsp-mode-hook()
+    (if (derived-mode-p 'c-mode 'c++-mode)
+	'lsp
+      ))
+  )
 
 ;; Projectile for project interaction
 (use-package projectile
@@ -263,46 +264,43 @@
 
 ;; Markdown
 (use-package markdown-mode
+  :hook (markdown-mode . sengelha/markdown-mode-hook)
   :config
   (setq markdown-fontify-code-blocks-natively t)
+  (defun sengelha/markdown-mode-hook()
+    (setq indent-tabs-mode nil)
+    (setq tab-width 4)
+    (setopt display-fill-column-indicator-column 130)
+    (display-fill-column-indicator-mode))
   :custom-face
-  (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face)))))
-
-(defun my-markdown-mode-hook ()
-  "function that runs when markdown-mode is initialized for a buffer."
-  (setq indent-tabs-mode nil)
-  (setq tab-width 4)
-  (setopt display-fill-column-indicator-column 130)
-  (display-fill-column-indicator-mode)
+  (markdown-code-face ((t (:foreground "#A3BE8C" :weight extra-bold :inherit markdown-header-face))))
   )
-(add-hook 'markdown-mode-hook 'my-markdown-mode-hook)
 
 ;; Flymake
-(use-package flymake)
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+(use-package flymake
+  :hook (find-file . #'flymake-find-file-hook))
+
+;; CMake
+(use-package cmake-mode)
 
 ;; cpputils-cmake
-(use-package cpputils-cmake)
-(add-hook 'c-mode-common-hook
-	  (lambda ()
-            (if (derived-mode-p 'c-mode 'c++-mode)
-                (cppcm-reload-all)
-              )))
+(use-package cpputils-cmake
+  :hook (c-mode-common . sengelha/cpputils-cmake-mode-hook)
+  :config
+  (defun sengelha/cpputils-cmake-mode-cook ()
+    (if (derived-mode-p 'c-mode 'c++-mode)
+	(cppcm-reload-all)
+      )))
 
 ;; C/C++
 
 ;; C#
 (require 'csharp-mode)
-(defun my-csharp-mode-hook ()
-  "function that runs when csharp-mode is initialized for a buffer."
+(defun sengelha/csharp-mode-hook()
   (setq indent-tabs-mode t)
   (setq tab-width 4)
-  (electric-pair-local-mode 1)
-  )
-(add-hook 'csharp-mode-hook 'my-csharp-mode-hook)
-
-;; CMake
-(use-package cmake-mode)
+  (electric-pair-local-mode 1))
+(add-hook 'csharp-mode-hook 'sengelha/csharp-mode-hook)
 
 ;; YAML
 (use-package yaml-mode)
