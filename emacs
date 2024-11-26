@@ -222,6 +222,10 @@
   (setq-default TeX-master nil) ; Query for master file
   (setq safe-local-variable-values '((TeX-command-extra-options . "-shell-escape")))
   )
+(defun sengelha/latex-mode-hook ()
+  (setopt display-fill-column-indicator-column 80)
+  (display-fill-column-indicator-mode))
+(add-hook 'LaTeX-mode-hook 'sengelha/latex-mode-hook)
 
 ;; Markdown
 (use-package markdown-mode
