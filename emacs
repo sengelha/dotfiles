@@ -291,6 +291,11 @@
 ;; Makefile mode
 (require 'make-mode)
 
+;; Editorconfig: Use and respect .editorconfig files
+(use-package editorconfig
+  :config
+  (editorconfig-mode 1))
+
 ;; Rainbow delibeters for pretty () matching
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
