@@ -255,6 +255,9 @@
 ;; CMake
 (use-package cmake-mode)
 
+;; Terraform
+(use-package terraform-mode)
+
 ;; flycheck: on-the-fly syntax checking
 (use-package flycheck
   :init (global-flycheck-mode))
