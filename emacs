@@ -223,6 +223,8 @@
   (setq safe-local-variable-values '((TeX-command-extra-options . "-shell-escape")))
   )
 (defun sengelha/latex-mode-hook ()
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2)
   (setopt display-fill-column-indicator-column 80)
   (display-fill-column-indicator-mode))
 (add-hook 'LaTeX-mode-hook 'sengelha/latex-mode-hook)
