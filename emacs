@@ -70,13 +70,21 @@
 
 ;; Load packages
 
-;; Company mode (code completion framework)
-(use-package company
-  :init (setq company-idle-delay 0.1
-	      company-minimum-prefix-length 1
-	      company-frontends '(company-pseudo-tooltip-frontend
-				  company-echo-metadata-frontend))
-  :config (global-company-mode))
+;; Corfu (auto-completion)
+(use-package corfu
+  :custom
+  (corfu-auto t)
+  :init
+  (global-corfu-mode))
+
+;; Emacs package
+(use-package emacs
+  :custom
+  ;; TAB cycle if there are only few candidates
+  ;; (completion-cycle-threshold 3)
+  (tab-always-indent 'complete)
+  (text-mode-ispell-word-completion nil)
+  (read-extended-command-predicate #'command-completion-default-include-p))
 
 ;; Git
 (use-package magit
@@ -194,7 +202,8 @@
 (use-package orderless
   :custom
   (completion-styles '(orderless basic))
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 ;; Marginalia: Provide helpful annotations next to completion candidates
 (use-package marginalia
