@@ -12,7 +12,7 @@
 (setq visible-bell t) ; Set up the visible bell
 (setq column-number-mode t)
 (setq line-number-mode t)
-(setq require-final-newline t) ; Always require newline at end of file
+(setq-default require-final-newline t) ; Always require newline at end of file
 (global-display-line-numbers-mode t)
 
 ;; Set preferred fonts
