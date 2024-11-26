@@ -24,8 +24,8 @@
        (variable-font (font-candidate "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
        (fixed-font-height (cond ((>= (display-pixel-height) 2160) 200)
 				(t 140)))
-       (variable-font-height (cond ((>= (display-pixel-height) 2160) 160)
-				   (t 120))))
+       (variable-font-height (cond ((>= (display-pixel-height) 2160) 200)
+				   (t 140))))
   (set-face-attribute 'default nil
 		      :family fixed-font
 		      :height fixed-font-height)
