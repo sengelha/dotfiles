@@ -21,7 +21,7 @@
   "Return existing font which first match."
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 (let* ((fixed-font (font-candidate "Inconsolata Nerd Font" "Inconsolata" "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
-       (variable-font (font-candidate "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
+       (variable-font (font-candidate "Segoe UI" "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
        (fixed-font-height (cond ((>= (display-pixel-height) 2160) 200)
 				(t 140)))
        (variable-font-height (cond ((>= (display-pixel-height) 2160) 200)
