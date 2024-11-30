@@ -3,17 +3,18 @@
 ;; User Interface
 (setq inhibit-startup-message t)
 
-(scroll-bar-mode -1)  ; Disable visible scrollbar
-(tool-bar-mode -1)    ; Disable the toolbar
-(tooltip-mode -1)     ; Disable tooltips
-(set-fringe-mode 10)  ; Give some breathing room
-(menu-bar-mode 1)     ; Enable the menu bar (on Mac it doesn't take any space)
+(scroll-bar-mode -1)                   ; Disable visible scrollbar
+(tool-bar-mode -1)                     ; Disable the toolbar
+(tooltip-mode -1)                      ; Disable tooltips
+(set-fringe-mode 10)                   ; Give some breathing room
+(menu-bar-mode 1)                      ; Enable the menu bar (on Mac it doesn't take any space)
 
-(setq visible-bell t) ; Set up the visible bell
+(setq visible-bell t)                  ; Set up the visible bell
 (setq column-number-mode t)
 (setq line-number-mode t)
-(setq-default require-final-newline t) ; Always require newline at end of file
 (global-display-line-numbers-mode t)
+(setq-default require-final-newline t) ; Always require newline at end of file
+(setq make-backup-files nil)           ; Do not generate ~ files
 
 ;; Set preferred fonts
 (require 'cl-lib)
