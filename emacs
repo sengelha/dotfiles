@@ -231,12 +231,14 @@
   (setq TeX-parse-self t)
   (setq-default TeX-master nil) ; Query for master file
   (setq safe-local-variable-values '((TeX-command-extra-options . "-shell-escape")))
+  (setq reftex-plug-into-AUCTeX t)
   )
 (defun sengelha/latex-mode-hook ()
   (setq indent-tabs-mode nil)
   (setq tab-width 2)
   (setopt display-fill-column-indicator-column 80)
-  (display-fill-column-indicator-mode))
+  (display-fill-column-indicator-mode)
+  (turn-on-reftex))
 (add-hook 'LaTeX-mode-hook 'sengelha/latex-mode-hook)
 
 ;; Markdown
