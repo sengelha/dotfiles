@@ -238,6 +238,7 @@
   (setq tab-width 2)
   (setopt display-fill-column-indicator-column 80)
   (display-fill-column-indicator-mode)
+  (turn-on-auto-fill)
   (turn-on-reftex))
 (add-hook 'LaTeX-mode-hook 'sengelha/latex-mode-hook)
 
