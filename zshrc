@@ -77,7 +77,7 @@ zstyle :omz:plugins:ssh-agent agent-forwarding yes
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bazel brew dirhistory git golang ssh-agent zsh-autosuggestions)
+plugins=(bazel brew dirhistory git golang rust ssh-agent zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
