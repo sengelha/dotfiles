@@ -386,3 +386,20 @@ otherwise assumed alphabetic."
                                                 (equal "Mozilla" base-style)
                                                 (equal "WebKit" base-style))
                                             (setq-local indent-tabs-mode nil))))))))))
+
+;; Setup org-roam for personal knowledge base
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-completion-everywhere t)
+  (org-roam-directory "~/proj/github/sengelha/knowledge-base")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+	 ("C-M-i" . completion-at-point))
+  :config
+  (org-roam-db-autosync-mode))
+
+(provide '.emacs)
+;;; .emacs ends here
