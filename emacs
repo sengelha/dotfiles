@@ -387,6 +387,12 @@ otherwise assumed alphabetic."
                                                 (equal "WebKit" base-style))
                                             (setq-local indent-tabs-mode nil))))))))))
 
+;; Set up org
+(use-package org
+  :config
+  (setq org-agenda-files '("~/proj/github/sengelha/org-mode/agenda.org"))
+  :bind (("C-c o a" . org-agenda)))
+
 ;; Setup org-roam for personal knowledge base
 (use-package org-roam
   :ensure t
