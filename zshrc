@@ -1,5 +1,9 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/go/bin:$PATH
+for d in $HOME/go/bin $HOME/.dotnet/tools $HOME/.cargo/bin /Applications/Docker.app/Contents/Resources/bin; do
+  if [[ -d $d ]]; then
+    export PATH=$d:$PATH
+  fi
+done
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -77,7 +81,7 @@ zstyle :omz:plugins:ssh-agent agent-forwarding yes
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(bazel brew dirhistory git golang rust ssh-agent zsh-autosuggestions)
+plugins=(bazel brew dirhistory docker dotnet git golang rust ssh-agent zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
