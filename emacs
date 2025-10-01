@@ -74,9 +74,25 @@
 ;; Corfu (auto-completion)
 (use-package corfu
   :custom
+  (corfu-cycle t)
   (corfu-auto t)
+  (corfu-auto-prefix 2)
+  (corfu-auto-delay 0.0)
+  (cofru-quit-at-boundary 'separator)
+  (corfu-echo-documentation 0.25)
+  (corfu-preview-current 'insert)
+  (corfu-preselect-first nil)
+  :bind (:map corfu-map
+	      ( "M-SPC" . corfu-insert-separator)
+	      ( "RET" . nil)
+	      ("TAB" . corfu-next)
+	      ([tab] . corfu-next)
+	      ("S-TAB" . corfu-previous)
+	      ([backtab] . corfu-previous)
+	      ("S-<return>" . corfu-insert))
   :init
-  (global-corfu-mode))
+  (global-corfu-mode)
+  (corfu-history-mode))
 
 ;; Emacs package
 (use-package emacs
