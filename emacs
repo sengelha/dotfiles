@@ -390,7 +390,7 @@ otherwise assumed alphabetic."
 ;; Set up org
 (use-package org
   :config
-  (setq org-agenda-files '("~/proj/github/sengelha/org-mode/agenda.org"))
+  (setq org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
   :bind (("C-c o a" . org-agenda)))
 
 ;; Setup org-roam for personal knowledge base
