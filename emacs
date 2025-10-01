@@ -393,6 +393,11 @@ otherwise assumed alphabetic."
   (setq org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
   :bind (("C-c o a" . org-agenda)))
 
+;; org-mode specific hooks
+(defun sengelha/org-mode-hook ()
+  (display-fill-column-indicator-mode 1))
+(add-hook 'org-mode-hook 'sengelha/org-mode-hook)
+
 ;; Setup org-roam for personal knowledge base
 (use-package org-roam
   :ensure t
@@ -411,10 +416,13 @@ otherwise assumed alphabetic."
   (require 'org-roam-dailies)
   (org-roam-db-autosync-mode))
 
-;; org-mode specific hooks
-(defun sengelha/org-mode-hook ()
-  (display-fill-column-indicator-mode 1))
-(add-hook 'org-mode-hook 'sengelha/org-mode-hook)
+;; Setup org-download
+(use-package org-download
+  :after org)
+
+;; Setup ob-mermaid
+(use-package ob-mermaid
+  :after org)
 
 (provide '.emacs)
 ;;; .emacs ends here
