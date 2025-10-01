@@ -391,6 +391,7 @@ otherwise assumed alphabetic."
 (use-package org
   :config
   (setq org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
+  (setq org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
   :bind (("C-c o a" . org-agenda)))
 
 ;; org-mode specific hooks
