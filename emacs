@@ -1,5 +1,4 @@
 ;;; -*- Mode: Emacs-Lisp -*-
-
 ;; User Interface
 (setq inhibit-startup-message t)
 
@@ -408,7 +407,9 @@ otherwise assumed alphabetic."
   :config
   (setq org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
   (setq org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
-  :bind (("C-c o a" . org-agenda)))
+  :bind (("C-c o l" . org-store-link)
+	 ("C-c o a" . org-agenda)
+	 ("C-c o c" . org-capture)))
 
 ;; org-mode specific hooks
 (defun sengelha/org-mode-hook ()
@@ -417,9 +418,9 @@ otherwise assumed alphabetic."
 
 ;; Setup org-journal for journaling
 (use-package org-journal
-  :after org
+  :ensure t
   :bind
-  ("C-c n j" . org-journal-new-entry)
+  ("C-c o j" . org-journal-new-entry)
   :custom
   (org-journal-date-prefix "#+title: ")
   (org-journal-file-format "%Y-%m-%d.org")
