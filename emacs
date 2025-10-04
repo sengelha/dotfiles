@@ -415,31 +415,50 @@ otherwise assumed alphabetic."
   (display-fill-column-indicator-mode 1))
 (add-hook 'org-mode-hook 'sengelha/org-mode-hook)
 
+;; Setup org-journal for journaling
+(use-package org-journal
+  :after org
+  :bind
+  ("C-c n j" . org-journal-new-entry)
+  :custom
+  (org-journal-date-prefix "#+title: ")
+  (org-journal-file-format "%Y-%m-%d.org")
+  (org-journal-dir "~/proj/github/sengelha/org-mode/journal")
+  (org-journal-date-format "%A, %d %B %Y"))
+  
 ;; Setup org-roam for personal knowledge base
 (use-package org-roam
   :ensure t
   :custom
   (org-roam-completion-everywhere t)
   (org-roam-directory "~/proj/github/sengelha/org-mode/roam")
-  (org-roam-dailies-directory "journal")
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n i" . org-roam-node-insert)
 	 :map org-mode-map
 	 ("C-M-i" . completion-at-point))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
   :config
-  (require 'org-roam-dailies)
   (org-roam-db-autosync-mode))
 
 ;; Setup org-download
 (use-package org-download
-  :after org)
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
 
-;; Setup ob-mermaid
-(use-package ob-mermaid
-  :after org)
+;; Use deft for searching and filtering
+(use-package deft
+  :after org
+  :bind
+  ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory org-roam-directory))
 
 (provide '.emacs)
 ;;; .emacs ends here
+
