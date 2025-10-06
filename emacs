@@ -404,9 +404,12 @@ otherwise assumed alphabetic."
 
 ;; Set up org
 (use-package org
-  :config
-  (setq org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
-  (setq org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
+  :custom
+  (org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
+  (org-agenda-custom-commands
+   '(("d" "Daily agenda"
+      ((agenda "" ((org-agenda-span 'day)))))))
+  (org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
   :bind (("C-c o l" . org-store-link)
 	 ("C-c o a" . org-agenda)
 	 ("C-c o c" . org-capture)))
@@ -462,4 +465,3 @@ otherwise assumed alphabetic."
 
 (provide '.emacs)
 ;;; .emacs ends here
-
