@@ -238,6 +238,11 @@
   :init
   (savehist-mode))
 
+;; PlantUML
+(use-package plantuml-mode
+  :custom
+  (plantuml-default-exec-mode 'executable))
+
 ;; LaTeX
 (use-package tex
   :ensure auctex
@@ -409,7 +414,14 @@ otherwise assumed alphabetic."
   (org-agenda-custom-commands
    '(("d" "Daily agenda"
       ((agenda "" ((org-agenda-span 'day)))))))
+  (org-confirm-babel-evaluate nil)
+  (org-plantuml-exec-mode 'plantuml)
+  (org-startup-with-inline-images t)
   (org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((plantuml . t)))
   :bind (("C-c o l" . org-store-link)
 	 ("C-c o a" . org-agenda)
 	 ("C-c o c" . org-capture)))
