@@ -12,8 +12,11 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (global-display-line-numbers-mode t)
-(setq-default require-final-newline t) ; Always require newline at end of file
 (setq make-backup-files nil)           ; Do not generate ~ files
+
+(setq-default indent-tabs-mode nil)    ; Use space for indentation by default
+(setq-default tab-width 4)             ; Default tab width when not overriden by modes
+(setq-default require-final-newline t) ; Always require newline at end of file
 
 ;; Set preferred fonts
 (require 'cl-lib)
@@ -242,6 +245,9 @@
 (use-package plantuml-mode
   :custom
   (plantuml-default-exec-mode 'executable))
+
+;; JSON
+(use-package json-mode)
 
 ;; LaTeX
 (use-package tex
