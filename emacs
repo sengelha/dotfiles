@@ -413,10 +413,17 @@ otherwise assumed alphabetic."
                                                 (equal "WebKit" base-style))
                                             (setq-local indent-tabs-mode nil))))))))))
 
+(defun directory-candidate (&rest directories)
+  "Return existing directory which first match."
+  (seq-find #'file-directory-p directories))
+
 ;; Set up org
 (use-package org
   :custom
-  (org-agenda-files (directory-files-recursively "~/proj/github/sengelha/org-mode/agenda" "\\.org$"))
+  (org-agenda-files
+   (directory-files-recursively
+    (directory-candidate "~/proj/github/sengelha/org-mode/agenda" "D:\\proj\\github\\sengelha\\org-mode\\agenda")
+    "\\.org$"))
   (org-agenda-custom-commands
    '(("d" "Daily agenda"
       ((agenda "" ((org-agenda-span 'day)))))))
@@ -445,7 +452,7 @@ otherwise assumed alphabetic."
   :custom
   (org-journal-date-prefix "#+title: ")
   (org-journal-file-format "%Y-%m-%d.org")
-  (org-journal-dir "~/proj/github/sengelha/org-mode/journal")
+  (org-journal-dir (directory-candidate "~/proj/github/sengelha/org-mode/journal" "D:\\proj\\github\\sengelha\\org-mode\\journal"))
   (org-journal-date-format "%A, %d %B %Y"))
   
 ;; Setup org-roam for personal knowledge base
@@ -453,7 +460,7 @@ otherwise assumed alphabetic."
   :ensure t
   :custom
   (org-roam-completion-everywhere t)
-  (org-roam-directory "~/proj/github/sengelha/org-mode/roam")
+  (org-roam-directory (directory-candidate "~/proj/github/sengelha/org-mode/roam" "D:\\proj\\github\\sengelha\\org-mode\\roam"))
   :bind (("C-c n l" . org-roam-buffer-toggle)
 	 ("C-c n f" . org-roam-node-find)
 	 ("C-c n i" . org-roam-node-insert)
