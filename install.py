@@ -37,6 +37,7 @@ def main():
     for root, dirs, files in os.walk(src_root):
         remove_if_exists(dirs, item=".git")
         remove_if_exists(files, item=".gitignore")
+        remove_if_exists(files, item="Makefile")
         remove_if_exists(files, item="install.py")
         remove_if_exists(files, glob=".#*")
         remove_if_exists(files, glob="#*")

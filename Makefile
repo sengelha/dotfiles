@@ -1,3 +1,3 @@
 .PHONY: all
 all:
-	python ./install.py
+	python3 ./install.py
