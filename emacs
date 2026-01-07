@@ -493,5 +493,17 @@ otherwise assumed alphabetic."
   (deft-default-extension "org")
   (deft-directory org-roam-directory))
 
+;; Track which commands I use; show with M-x keyfreq-show
+(use-package keyfreq
+  :ensure t
+  :config
+  (keyfreq-mode 1)
+  (keyfreq-autosave-mode 1))
+
+;; Use ace-window to improve switching windows
+(use-package ace-window
+  :ensure t
+  :bind ("M-o" . ace-window))
+
 (provide '.emacs)
 ;;; .emacs ends here
