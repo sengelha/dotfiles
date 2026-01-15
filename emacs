@@ -505,5 +505,10 @@ otherwise assumed alphabetic."
   :ensure t
   :bind ("M-o" . ace-window))
 
+;; Use nov to allow opening epub
+(use-package nov
+  :ensure t
+  :mode ("\\.epub\\'" . nov-mode))
+
 (provide '.emacs)
 ;;; .emacs ends here
