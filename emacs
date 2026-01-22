@@ -508,5 +508,21 @@ otherwise assumed alphabetic."
   :ensure t
   :mode ("\\.epub\\'" . nov-mode))
 
+;; LSP mode for language server
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook ((c++-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
+(use-package dap-mode)
+
 (provide '.emacs)
 ;;; .emacs ends here
