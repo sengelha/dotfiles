@@ -31,6 +31,9 @@ def copy_file_if_newer(src, dst):
         if not os.path.exists(dst_dir):
             os.makedirs(dst_dir)
         shutil.copy2(src, dst)
+    elif os.path.getmtime(dst) > os.path.getmtime(src):
+        print(f"WARNING: {dst} has modification time after {src}.  Resetting.")
+        shutil.copystat(src, dst)
 
 def copy_all_dotfiles():
     src_root = os.path.abspath(os.path.dirname(__file__))
