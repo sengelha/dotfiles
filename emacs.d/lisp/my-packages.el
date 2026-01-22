@@ -41,6 +41,7 @@
 
 ;; which-key: interactive help when using C-c, etc.
 (use-package which-key
+  :after lsp-mode
   :init (which-key-mode)
   :diminish which-key-mode
   :config
@@ -84,7 +85,6 @@
   (org-confirm-babel-evaluate nil)
   (org-plantuml-exec-mode 'plantuml)
   (org-startup-with-inline-images t)
-  (org-todo-keywords '((sequence "TODO" "REVIEW" "DONE")))
   :config
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -126,6 +126,23 @@
   :config
   (keyfreq-mode 1)
   (keyfreq-autosave-mode 1))
+
+;; lsp-mode: Language server mode
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         (python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; lsp-ui
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+;; lsp-treemacs
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
 
 (provide 'my-packages)
 ;;; my-packages.el ends here

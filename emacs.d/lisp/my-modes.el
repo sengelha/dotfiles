@@ -65,5 +65,9 @@
 ;; Makefile mode
 (require 'make-mode)
 
+;; Python
+(use-package python
+  :mode ("\\.py\\'" . python-mode))
+
 (provide 'my-modes)
 ;;; my-modes.el ends here
