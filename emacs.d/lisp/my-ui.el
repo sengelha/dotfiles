@@ -33,11 +33,15 @@
 
 ;; doom-themes: Use Doom color themes
 (use-package doom-themes
+  :ensure t
+  :custom
+  (doom-themes-enable-bold t)
+  (doom-themes-enable-italic t)
+  (doom-themes-treemacs-theme "doom-colors")
   :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t)
   (load-theme 'doom-palenight t)
   (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
   (doom-themes-org-config))
 
 ;; all-the-icons: Install icons package
