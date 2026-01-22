@@ -70,5 +70,15 @@
 (use-package python
   :mode ("\\.py\\'" . python-mode))
 
+;; lsp-mode: Language server mode
+(use-package lsp-mode
+  :init
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (
+         (csproj-mode . lsp)
+         (python-mode . lsp)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
 (provide 'my-modes)
 ;;; my-modes.el ends here
