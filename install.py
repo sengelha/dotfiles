@@ -3,6 +3,7 @@
 import fnmatch
 import os
 import shutil
+import subprocess
 
 def determine_destination_directory():
     if os.name == 'nt':
@@ -31,7 +32,7 @@ def copy_file_if_newer(src, dst):
             os.makedirs(dst_dir)
         shutil.copy2(src, dst)
 
-def main():
+def copy_all_dotfiles():
     src_root = os.path.abspath(os.path.dirname(__file__))
     dst_root = determine_destination_directory()
     for root, dirs, files in os.walk(src_root):
@@ -50,6 +51,13 @@ def main():
             else:
                 dst = os.path.join(os.path.join(dst_root, "." + relpath), file)
             copy_file_if_newer(src=src, dst=dst)
+
+def byte_compile_emacs_init():
+    subprocess.run(["emacs", "--batch", "--eval", "(byte-recompile-directory \"~/.emacs.d/\" 0)"])
+
+def main():
+    copy_all_dotfiles()
+    byte_compile_emacs_init()
 
 if __name__ == '__main__':
     main()
