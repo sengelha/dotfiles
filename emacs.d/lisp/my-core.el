@@ -1,5 +1,8 @@
 (require 'cl-lib)
 
+;; Don't touch the emacs init file
+(setq custom-file "~/.emacs.d/custom.el")
+
 ;; Initialize package sources
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
