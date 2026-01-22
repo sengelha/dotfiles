@@ -124,8 +124,8 @@
   :bind (("C-c o l" . org-store-link)
          ("C-c o a" . org-agenda)
          ("C-c o c" . org-capture))
-  :hook (org-mode-hook . (lambda ()
-                           (display-fill-column-indicator-mode 1))))
+  :hook (org-mode . (lambda ()
+                      (display-fill-column-indicator-mode 1))))
 
 ;; org-journal: Journaling
 (use-package org-journal
