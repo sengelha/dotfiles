@@ -57,9 +57,5 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;; whitespace: show whitespace
-(require 'whitespace)
-(global-whitespace-mode)
-
 (provide 'my-ui)
 ;;; my-ui.el ends here
