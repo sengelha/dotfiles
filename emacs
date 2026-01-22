@@ -512,8 +512,11 @@ otherwise assumed alphabetic."
 (use-package lsp-mode
   :init
   (setq lsp-keymap-prefix "C-c l")
-  :hook ((c++-mode . lsp)
-         (lsp-mode . lsp-enable-which-key-integration))
+  :hook
+  ((python-mode . lsp)
+   (c-mode . lsp)
+   (c++-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
 (use-package lsp-ui
