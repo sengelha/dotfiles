@@ -56,7 +56,8 @@
 
 ;; C# .csproj support
 (use-package csproj-mode
-  :ensure t)
+  :ensure t
+  :mode (("\\.props\\'" . csproj-mode)))
 
 ;; YAML
 (use-package yaml-mode
