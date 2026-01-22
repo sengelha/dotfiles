@@ -52,6 +52,20 @@
   (add-hook 'completion-at-point-functions #'cape-elisp-block))
 
 ;; embark: mini-buffer actions rooted in keymaps
+(use-package embark
+  :ensure t
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+                 nil
+                 (window-parameters (mode-line-format . none)))))
+
 (use-package embark-consult
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
