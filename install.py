@@ -60,7 +60,7 @@ def byte_compile_emacs_init():
 
 def main():
     copy_all_dotfiles()
-    byte_compile_emacs_init()
+    #byte_compile_emacs_init()
 
 if __name__ == '__main__':
     main()
