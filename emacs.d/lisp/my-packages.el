@@ -13,6 +13,10 @@
   (setq vertico-resize nil)
   (vertico-mode 1))
 
+;; consult: search and navigate via completing-read
+(use-package consult
+  :ensure t)
+  
 ;; corfu: in-buffer completion
 (use-package corfu
   :init
@@ -38,6 +42,20 @@
 (use-package marginalia
   :config
   (marginalia-mode 1))
+
+;; cape
+(use-package cape
+  :bind ("C-c p" . cape-prefix-map) ;; Alternative key: M-<tab>, M-p, M-+
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
+
+;; embark: mini-buffer actions rooted in keymaps
+(use-package embark-consult
+  :ensure t ; only need to install it, embark loads it after consult if found
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 ;; which-key: interactive help when using C-c, etc.
 (use-package which-key
