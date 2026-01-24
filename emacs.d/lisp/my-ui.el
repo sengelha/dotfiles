@@ -15,7 +15,7 @@
   :config
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
-  :hook (emacs-startup-hook . treemacs))
+  :hook (emacs-startup . treemacs))
 
 ;; vertico: minibuffer completion
 (use-package vertico
