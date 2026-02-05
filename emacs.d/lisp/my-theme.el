@@ -28,7 +28,7 @@
   (doom-themes-enable-italic t)
   (doom-themes-treemacs-theme "doom-colors")
   :config
-  (load-theme 'doom-palenight t)
+  (load-theme 'doom-material t)
   (doom-themes-visual-bell-config)
   (doom-themes-treemacs-config)
   (doom-themes-org-config))
