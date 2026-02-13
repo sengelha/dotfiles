@@ -3,7 +3,7 @@
   (cl-find-if (lambda (f) (find-font (font-spec :name f))) fonts))
 
 (let* ((fixed-font (font-candidate "BlexMono Nerd Font" "Inconsolata Nerd Font" "Inconsolata" "Fira Code" "Consolas" "Menlo" "DejaVu Sans Mono"))
-       (variable-font (font-candidate "SF Pro" "Segoe UI" "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
+       (variable-font (font-candidate "SF Pro" "Segoe UI" "Ubuntu Sans" "Lucida Grande" "Helvetica Neue" "Helvetica" "Arial"))
        (fixed-font-height 140)
        (variable-font-height 140))
   (set-face-attribute 'default nil
