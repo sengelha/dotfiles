@@ -16,7 +16,9 @@
   (treemacs-expand-after-init t)
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
-  :hook (server-after-make-frame . treemacs))
+  :hook
+  ((emacs-startup . treemacs)
+   (server-after-make-frame . treemacs)))
 
 ;; vertico: minibuffer completion
 (use-package vertico
