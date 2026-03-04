@@ -12,10 +12,11 @@
 ;; treemacs: folder tree
 (use-package treemacs
   :ensure t
-  :config
+  :custom
+  (treemacs-expand-after-init t)
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
-  :hook (emacs-startup . treemacs))
+  :hook (server-after-make-frame . treemacs))
 
 ;; vertico: minibuffer completion
 (use-package vertico
