@@ -8,6 +8,7 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (global-display-line-numbers-mode t)
+(global-whitespace-mode 1)
 
 ;; treemacs: folder tree
 (use-package treemacs
