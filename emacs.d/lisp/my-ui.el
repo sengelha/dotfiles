@@ -3,12 +3,18 @@
 (tool-bar-mode -1)                     ; Disable the toolbar
 (tooltip-mode -1)                      ; Disable tooltips
 (set-fringe-mode 10)                   ; Give some breathing room
-(menu-bar-mode 1)                      ; Enable the menu bar (on Mac it doesn't take any space)
 (setq visible-bell t)                  ; Set up the visible bell
 (setq column-number-mode t)
 (setq line-number-mode t)
 (global-display-line-numbers-mode t)
 (global-whitespace-mode 1)
+
+;; Show menu bar on Mac (it doesn't take any space)
+(cond
+ ((eq system-type 'darwin)
+  (menu-bar-mode 1))
+ (t
+  (menu-bar-mode 0)))
 
 ;; treemacs: folder tree
 (use-package treemacs
@@ -31,7 +37,7 @@
 ;; consult: search and navigate via completing-read
 (use-package consult
   :ensure t)
-  
+
 ;; corfu: in-buffer completion
 (use-package corfu
   :init
