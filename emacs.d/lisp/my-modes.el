@@ -133,5 +133,9 @@
   :config
   (org-roam-db-autosync-mode))
 
+;; rust-mode: Rust language support
+(use-package rust-mode
+  :ensure t)
+
 (provide 'my-modes)
 ;;; my-modes.el ends here
