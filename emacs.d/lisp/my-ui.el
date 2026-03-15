@@ -7,7 +7,11 @@
 (setq column-number-mode t)
 (setq line-number-mode t)
 (global-display-line-numbers-mode t)
+
+;; Configure whitespace display
 (global-whitespace-mode 1)
+(setq-default whitespace-style
+              '(face spaces empty tabs newline trailing space-mark tab-mark newline-mark))
 
 ;; Show menu bar on Mac (it doesn't take any space)
 (cond
