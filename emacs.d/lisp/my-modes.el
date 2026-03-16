@@ -137,5 +137,9 @@
 (use-package rust-mode
   :ensure t)
 
+;; clang-format: Allow formatting files with clang-format
+(use-package clang-format
+  :ensure t)
+
 (provide 'my-modes)
 ;;; my-modes.el ends here
