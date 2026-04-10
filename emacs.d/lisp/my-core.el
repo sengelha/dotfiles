@@ -19,5 +19,9 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Add additional directories to path if necessary
+(if (file-directory-p "/opt/homebrew/bin")
+    (add-to-list 'exec-path "/opt/homebrew/bin" t))
+
 (provide 'my-core)
 ;;; my-core.el ends here

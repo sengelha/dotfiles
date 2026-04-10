@@ -23,7 +23,8 @@
 (use-package plantuml-mode
   :ensure t
   :custom
-  (plantuml-default-exec-mode 'executable))
+  (plantuml-default-exec-mode 'executable)
+  (plantuml-executable-path (executable-find "plantuml")))
 
 ;; Markdown
 (use-package markdown-mode
@@ -97,6 +98,7 @@
       ((agenda "" ((org-agenda-span 'day)))))))
   (org-confirm-babel-evaluate nil)
   (org-plantuml-exec-mode 'plantuml)
+  (org-plantuml-executable-path (executable-find "plantuml"))
   (org-startup-with-inline-images t)
   :config
   (org-babel-do-load-languages
