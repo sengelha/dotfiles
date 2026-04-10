@@ -97,6 +97,7 @@
    '(("d" "Daily agenda"
       ((agenda "" ((org-agenda-span 'day)))))))
   (org-confirm-babel-evaluate nil)
+  (org-image-max-width 'window)
   (org-plantuml-exec-mode 'plantuml)
   (org-plantuml-executable-path (executable-find "plantuml"))
   (org-startup-with-inline-images t)
