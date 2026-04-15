@@ -7,3 +7,5 @@
 	rebase = false
 [alias]
 	branches = !git for-each-ref --sort='-committerdate:iso8601' --format=' %(committerdate:iso8601)|%(committerdate:relative)|%(refname:short)|%(committername)' refs/remotes | column -s '|' -t
+[init]
+	defaultBranch = main
