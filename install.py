@@ -29,7 +29,7 @@ def copy_file(src, dst):
             os.makedirs(dst_dir)
         shutil.copy2(src, dst)
     elif os.path.getmtime(dst) > os.path.getmtime(src):
-        logging.warn(f"{dst} has modification time after {src}, skipping")
+        logging.warning(f"{dst} has modification time after {src}, skipping")
     else:
         logging.debug(f"{dst} has same modification time as {src}, nothing to do")
 
