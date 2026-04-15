@@ -11,7 +11,7 @@ DOTFILES_CONFIG = {
         'config/nvim': "%LOCALAPPDATA%/nvim",
         'emacs.d': "%APPDATA%/.emacs.d",
     },
-    'linux': {
+    'linux|darwin': {
         'config': '~/.config',
         'emacs.d': '~/.emacs.d',
         'gitconfig': '~/.gitconfig',
@@ -43,15 +43,17 @@ def canonicalize_path(p):
     return p
 
 def copy_all_dotfiles():
-    for src, dst in DOTFILES_CONFIG[sys.platform].items():
-        src = canonicalize_path(src)
-        dst = canonicalize_path(dst)
-        if os.path.isdir(src):
-            copy_dir(src, dst)
-        elif os.path.isfile(src):
-            copy_file(src, dst)
-        else:
-            raise Exception(f"{src}: Unrecognized file type")
+    for k, v in DOTFILES_CONFIG.items():
+        if re.match(k, sys.platform):
+            for src, dst in v.items():
+                src = canonicalize_path(src)
+                dst = canonicalize_path(dst)
+                if os.path.isdir(src):
+                   copy_dir(src, dst)
+                elif os.path.isfile(src):
+                   copy_file(src, dst)
+                else:
+                    raise Exception(f"{src}: Unrecognized file type")
 
 def main():
     logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
