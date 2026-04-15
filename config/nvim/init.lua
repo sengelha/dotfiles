@@ -176,6 +176,18 @@ require('lazy').setup({
     end,
   },
 
+  -- org-mode support
+  {
+    'nvim-orgmode/orgmode',
+    event = 'VeryLazy',
+    ft = { 'org' },
+    config = function()
+      require('orgmode').setup({
+      })
+      vim.lsp.enable('org')
+    end,
+  },
+
 }, { ---@diagnostic disable-line: missing-fields
   ui = {
     icons = vim.g.have_nerd_font and {} or {
