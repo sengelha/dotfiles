@@ -98,6 +98,7 @@ require('lazy').setup({
   -- TODO: Add nvim-treesitter
   -- TODO: Add nvim-cmp (completion engine)
   -- TODO: Add conform (code formatting)
+  -- TODO: Add org-mode support
 
   -- Add git related signs to the gutter
   {
