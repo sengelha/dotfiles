@@ -45,6 +45,7 @@ def copy_all_dotfiles():
         remove_if_exists(files, item="install.py")
         remove_if_exists(files, glob=".#*")
         remove_if_exists(files, glob="#*")
+        remove_if_exists(files, glob="*.swp")
 
         relpath = os.path.relpath(root, src_root)
         for file in files:
