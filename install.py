@@ -12,12 +12,12 @@ DOTFILES_CONFIG = {
         'emacs.d': "%APPDATA%/.emacs.d",
     },
     'linux': {
-        'config', '~/.config',
-        'emacs.d', '~/.emacs.d',
-        'gitconfig', '~/.gitconfig',
-        'mutt', '~/.mutt',
-        'muttrc', '~/.muttrc',
-        'zshrc', '~/.zshrc',
+        'config': '~/.config',
+        'emacs.d': '~/.emacs.d',
+        'gitconfig': '~/.gitconfig',
+        'mutt': '~/.mutt',
+        'muttrc': '~/.muttrc',
+        'zshrc': '~/.zshrc',
     }
 }
 
