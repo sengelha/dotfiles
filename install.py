@@ -1,67 +1,61 @@
 #!/usr/bin/env python -tt
 
-import fnmatch
+import logging
 import os
+import re
 import shutil
-import subprocess
+import sys
 
-def determine_destination_directory():
-    if os.name == 'nt':
-        return os.path.join(os.environ['APPDATA'], '')
-    else:
-        return os.environ['HOME']
+DOTFILES_CONFIG = {
+    'win32': {
+        'config/nvim': "%LOCALAPPDATA%/nvim",
+        'emacs.d': "%APPDATA%/.emacs.d",
+    },
+    'linux': {
+        'config', '~/.config',
+        'emacs.d', '~/.emacs.d',
+        'gitconfig', '~/.gitconfig',
+        'mutt', '~/.mutt',
+        'muttrc', '~/.muttrc',
+        'zshrc', '~/.zshrc',
+    }
+}
 
-def remove_if_exists(lst, item=None, glob=None):
-    if item is not None:
-        try:
-            lst.remove(item)
-        except ValueError:
-            pass
-    elif glob is not None:
-        for x in lst:
-            if fnmatch.fnmatch(x, glob):
-                lst.remove(x)
-    else:
-        raise Exception("One of item or glob must be provided")
-
-def copy_file_if_newer(src, dst):
+def copy_file(src, dst):
     if not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst):
-        print(f"Copying {src} to {dst}")
+        logging.info(f"Copying {src} to {dst}")
         dst_dir = os.path.dirname(dst)
         if not os.path.exists(dst_dir):
             os.makedirs(dst_dir)
         shutil.copy2(src, dst)
     elif os.path.getmtime(dst) > os.path.getmtime(src):
-        print(f"WARNING: {dst} has modification time after {src}.  Resetting.")
-        shutil.copystat(src, dst)
+        logging.warn(f"{dst} has modification time after {src}, skipping")
+    else:
+        logging.debug(f"{dst} has same modification time as {src}, nothing to do")
+
+def copy_dir(src, dst):
+    shutil.copytree(src, dst, dirs_exist_ok=True, copy_function=copy_file)
+
+def canonicalize_path(p):
+    p = p.replace("/", os.sep)
+    p = os.path.expandvars(p)
+    p = os.path.expanduser(p)
+    return p
 
 def copy_all_dotfiles():
-    src_root = os.path.abspath(os.path.dirname(__file__))
-    dst_root = determine_destination_directory()
-    for root, dirs, files in os.walk(src_root):
-        remove_if_exists(dirs, item=".git")
-        remove_if_exists(files, item=".gitignore")
-        remove_if_exists(files, item="Makefile")
-        remove_if_exists(files, item="install.py")
-        remove_if_exists(files, glob=".#*")
-        remove_if_exists(files, glob="#*")
-        remove_if_exists(files, glob="*.swp")
-
-        relpath = os.path.relpath(root, src_root)
-        for file in files:
-            src = os.path.join(root, file)
-            if relpath == ".":
-                dst = os.path.join(dst_root, "." + file)
-            else:
-                dst = os.path.join(os.path.join(dst_root, "." + relpath), file)
-            copy_file_if_newer(src=src, dst=dst)
-
-def byte_compile_emacs_init():
-    subprocess.run(["emacs", "--batch", "--eval", "(byte-recompile-directory \"~/.emacs.d/\" 0)"])
+    for src, dst in DOTFILES_CONFIG[sys.platform].items():
+        src = canonicalize_path(src)
+        dst = canonicalize_path(dst)
+        if os.path.isdir(src):
+            copy_dir(src, dst)
+        elif os.path.isfile(src):
+            copy_file(src, dst)
+        else:
+            raise Exception(f"{src}: Unrecognized file type")
 
 def main():
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s %(message)s')
     copy_all_dotfiles()
-    #byte_compile_emacs_init()
 
 if __name__ == '__main__':
     main()
