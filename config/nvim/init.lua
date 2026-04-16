@@ -98,7 +98,6 @@ require('lazy').setup({
   -- TODO: Add nvim-treesitter
   -- TODO: Add nvim-cmp (completion engine)
   -- TODO: Add conform (code formatting)
-  -- TODO: Add org-mode support
 
   -- Add git related signs to the gutter
   {
@@ -183,10 +182,31 @@ require('lazy').setup({
     ft = { 'org' },
     config = function()
       require('orgmode').setup({
+        org_agenda_files = {'D:/proj/github/sengelha/org-mode/agenda/**/*'},
+        org_capture_templates = {
+          j = {
+            description = 'Journal',
+            template =  '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
+            target = 'D:/proj/github/sengelha/org-mode/journal/%<%Y-%m-%d>.org'
+          }
+        }
       })
       vim.lsp.enable('org')
     end,
   },
+
+  -- nvim-tree: file tree in sidebar
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require("nvim-tree").setup({
+        hijack_directories = {
+          enable = true,
+          auto_open = true,
+        },
+      })
+    end
+  }
 
 }, { ---@diagnostic disable-line: missing-fields
   ui = {
