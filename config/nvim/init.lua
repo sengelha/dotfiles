@@ -96,12 +96,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Configure and install plugins
 require('lazy').setup({
-  -- TODO: add nvim-lspconfig
-  -- TODO: add telescope
-  -- TODO: Add oil for filesystem editing?
-  -- TODO: Add nvim-treesitter
-  -- TODO: Add nvim-cmp (completion engine)
-
   -- Add git related signs to the gutter
   {
     'lewis6991/gitsigns.nvim',
@@ -172,16 +166,215 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
-      -- TODO: LSP attach
-      -- TODO: override default behavior on searching
-      -- TODO: Override <leader>s/
-      -- TODO: Add shortcut for searching neovim config files
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('telescope-lsp-attach', { clear = true }),
+        callback = function(event)
+          local buf = event.buf
+          vim.keymap.set('n', 'grr', builtin.lsp_references, { buffer = buf, desc = '[G]oto [R]eferences' })
+          vim.keymap.set('n', 'gri', builtin.lsp_implementations, { buffer = buf, desc = '[G]oto [I]mplementation' })
+          vim.keymap.set('n', 'grd', builtin.lsp_definitions, { buffer = buf, desc = '[G]oto [D]efinition' })
+          vim.keymap.set('n', 'gO', builtin.lsp_document_symbols, { buffer = buf, desc = 'Open Document Symbols' })
+          vim.keymap.set('n', 'gW', builtin.lsp_dynamic_workspace_symbols, { buffer = buf, desc = 'Open Workspace Symbols' })
+          vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+        end,
+      })
+
+      -- Override default behavior and theme when searching
+      vim.keymap.set('n', '<leader>/', function()
+        -- You can pass additional configuration to Telescope to change the theme, layout, etc.
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          winblend = 10,
+          previewer = false,
+        })
+      end, { desc = '[/] Fuzzily search in current buffer' })
+
+      vim.keymap.set(
+        'n',
+        '<leader>s/',
+        function()
+          builtin.live_grep {
+            grep_open_files = true,
+            prompt_title = 'Live Grep in Open Files',
+          }
+        end,
+        { desc = '[S]earch [/] in Open Files' }
+      )
+
+      -- Shortcut for searching your Neovim configuration files
+      vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
     end,
   },
 
-  -- TODO: LSP
-  -- TODO: Add conform (code formatting)
-  -- TODO: Add blink
+  {
+    -- Main LSP Configuration
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      {
+        'mason-org/mason.nvim',
+        opts = {},
+      },
+      'mason-org/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'j-hui/fidget.nvim', opts = {} },
+    },
+    config = function()
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
+        callback = function(event)
+          local map = function(keys, func, desc, mode)
+            mode = mode or 'n'
+            vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
+          end
+
+          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method('textDocument/documentHighlight', event.buf) then
+            local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.document_highlight,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+              buffer = event.buf,
+              group = highlight_augroup,
+              callback = vim.lsp.buf.clear_references,
+            })
+
+            vim.api.nvim_create_autocmd('LspDetach', {
+              group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+              callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+              end,
+            })
+          end
+
+          if client and client:supports_method('textDocument/inlayHint', event.buf) then
+            map('<leader>th', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }) end, '[T]oggle Inlay [H]ints')
+          end
+        end,
+      })
+
+      local servers = {
+        stylua = {}, -- Used to format Lua code
+        lua_ls = {
+          on_init = function(client)
+            client.server_capabilities.documentFormattingProvider = false -- Disable formatting (formatting is done by stylua)
+
+            if client.workspace_folders then
+              local path = client.workspace_folders[1].name
+              if path ~= vim.fn.stdpath 'config' and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc')) then return end
+            end
+
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+              runtime = {
+                version = 'LuaJIT',
+                path = { 'lua/?.lua', 'lua/?/init.lua' },
+              },
+              workspace = {
+                checkThirdParty = false,
+                -- NOTE: this is a lot slower and will cause issues when working on your own configuration.
+                --  See https://github.com/neovim/nvim-lspconfig/issues/3189
+                library = vim.tbl_extend('force', vim.api.nvim_get_runtime_file('', true), {
+                  '${3rd}/luv/library',
+                  '${3rd}/busted/library',
+                }),
+              },
+            })
+          end,
+          settings = {
+            Lua = {
+              format = { enable = false }, -- Disable formatting (formatting is done by stylua)
+            },
+          },
+        },
+      }
+
+      local ensure_installed = vim.tbl_keys(servers or {})
+      vim.list_extend(ensure_installed, {
+      })
+
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      for name, server in pairs(servers) do
+        vim.lsp.config(name, server)
+        vim.lsp.enable(name)
+      end
+    end,
+  },
+
+  -- conform autoformat
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
+    keys = {
+      {
+        '<leader>f',
+        function() require('conform').format { async = true } end,
+        mode = '',
+        desc = '[F]ormat buffer',
+      },
+    },
+    opts = {
+      notify_on_error = false,
+      format_on_save = function(bufnr)
+        local enabled_filetypes = {
+        }
+        if enabled_filetypes[vim.bo[bufnr].filetype] then
+          return { timeout_ms = 500 }
+        else
+          return nil
+        end
+      end,
+      default_format_opts = {
+        lsp_format = 'fallback',
+      },
+      formatters_by_ft = {
+      },
+    },
+  },
+
+  -- blink autocompletion
+  {
+    'saghen/blink.cmp',
+    event = 'VimEnter',
+    version = '1.*',
+    dependencies = {
+      {
+        'L3MON4D3/LuaSnip',
+        version = '2.*',
+        build = (function()
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then return end
+          return 'make install_jsregexp'
+        end)(),
+        dependencies = {},
+        opts = {},
+      },
+    },
+    opts = {
+      keymap = {
+        preset = 'default',
+      },
+      appearance = {
+        nerd_font_variant = 'mono',
+      },
+      completion = {
+        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets' },
+      },
+      snippets = { preset = 'luasnip' },
+      fuzzy = { implementation = 'lua' },
+      signature = { enabled = true },
+    },
+  },
 
   -- Tokyo Night color scheme
   {
