@@ -265,7 +265,8 @@ require('lazy').setup({
       })
 
       local servers = {
-        stylua = {}, -- Used to format Lua code
+        rust_analyzer = {}, -- Rust language support
+        stylua = {}, -- Lua formatting
         lua_ls = {
           on_init = function(client)
             client.server_capabilities.documentFormattingProvider = false -- Disable formatting (formatting is done by stylua)
@@ -300,8 +301,7 @@ require('lazy').setup({
       }
 
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-      })
+      vim.list_extend(ensure_installed, {})
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
