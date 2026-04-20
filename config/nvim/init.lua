@@ -434,16 +434,26 @@ require('lazy').setup({
     event = 'VeryLazy',
     ft = { 'org' },
     config = function()
+      local function find_org_root()
+        for i, v in ipairs({'~/proj/github/sengelha/org-mode', 'D:/proj/github/sengelha/org-mode'}) do
+          if vim.fn.isdirectory(v) then
+            return v
+          end
+        end
+        return nil
+      end
+      org_root = find_org_root();
       require('orgmode').setup({
-        org_agenda_files = {'D:/proj/github/sengelha/org-mode/agenda/**/*'},
+        org_agenda_files = { org_root .. '/agenda/**/*' },
         org_capture_templates = {
           j = {
             description = 'Journal',
             template =  '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
-            target = 'D:/proj/github/sengelha/org-mode/journal/%<%Y-%m-%d>.org'
+            target = org_root .. '/journal/%<%Y-%m-%d>.org'
           }
         }
       })
+
       vim.lsp.enable('org')
     end,
   },
