@@ -442,7 +442,7 @@ require('lazy').setup({
         end
         return nil
       end
-      org_root = find_org_root();
+      local org_root = find_org_root();
       require('orgmode').setup({
         org_agenda_files = { org_root .. '/agenda/**/*' },
         org_capture_templates = {
@@ -454,6 +454,7 @@ require('lazy').setup({
         }
       })
 
+      vim.keymap.set('n', '<leader>oj', "<cmd>lua require('orgmode').capture:open_template_by_shortcut('j')<CR>", { desc = 'Org Journal' })
       vim.lsp.enable('org')
     end,
   },
